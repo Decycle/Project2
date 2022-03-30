@@ -39,6 +39,6 @@ void MainWindow::on_pushButton_clicked()
     qDebug() << height << " " << width;
     scene->addLine(randomX1, randomY1, randomX2, randomY2, pen);
 
-//    this->ui->graphicsView->
+    QGraphicsItem ball = QGraphicsEllipseItem(0, 0, 20, 20);
 }
 
