@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <line.h>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,10 +20,14 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void advance();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
+    QTimer *timer;
+    Line **lines;
+    int step;
 
 };
 #endif // MAINWINDOW_H
