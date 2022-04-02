@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "vertexItem.h"
 
 #include <QGraphicsScene>
 #include <QDebug>
+#include <QGraphicsEllipseItem>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -13,7 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     scene = new QGraphicsScene(this->ui->graphicsView);
     this->ui->graphicsView->setScene(scene);
-
+    this->ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     QImage bgImg(":/ui/background.png");
     scene->addPixmap(QPixmap::fromImage(bgImg));
@@ -98,6 +101,16 @@ MainWindow::MainWindow(QWidget *parent)
         {20, 24, 1255},
     };
 
+    for(int i = 0; i < 25; i ++)
+    {
+
+        VertexItem *vertex = new VertexItem(vertices[i][0] - 5, vertices[i][1] - 5, 10, 10);
+        vertex->setBrush(QBrush(Qt::black));
+        vertex->setOpacity(0.5);
+        scene->addItem(vertex);
+//        scene->addEllipse(vertices[i][0] - 5, vertices[i][1] - 5, 10, 10, QPen(Qt::black), QBrush(Qt::black));
+    }
+
     lines = new Line*[49];
 
     for(int i = 0; i < 49; i++) {
@@ -106,6 +119,18 @@ MainWindow::MainWindow(QWidget *parent)
         line->addToScene(scene);
         lines[i] = line;
     }
+
+//    for(int i = 0; i < 49; i++) {
+//        QFont font;
+//        font.setPointSize(10);
+//        QGraphicsTextItem *text = scene->addText(QString::number(edges[i][2]), font);
+//        text->setDefaultTextColor(Qt::black);
+
+//        float xPos = (vertices[edges[i][0]][0] + vertices[edges[i][1]][0]) / 2.;
+//        float yPos = (vertices[edges[i][0]][1] + vertices[edges[i][1]][1]) / 2.;
+
+//        text->setPos(xPos, yPos);
+//    }
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
@@ -123,6 +148,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
+    step = 0;
     timer->start(40);
 }
 

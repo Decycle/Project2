@@ -15,7 +15,9 @@ SOURCES += \
 
 HEADERS += \
     line.h \
-    mainwindow.h
+    lineitem.h \
+    mainwindow.h \
+    vertexItem.h
 
 FORMS += \
     mainwindow.ui

@@ -1,0 +1,28 @@
+QMainWindow {
+  background-color: rgb(255, 255, 255);
+}
+QPushButton {
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  padding: 5%;
+}
+
+QGraphicsView {
+  border: none;
+}
+
+QPushButton:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+QTextEdit {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 16px;
+}
+
+* {
+  text-align: center;
+}

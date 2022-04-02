@@ -4,6 +4,7 @@
 #include <QGraphicsLineItem>
 #include <QGraphicsScene>
 #include <QPen>
+#include <lineitem.h>
 
 
 class Line
@@ -19,8 +20,8 @@ public:
     float y1;
     float x2;
     float y2;
-    QGraphicsLineItem *blackLine;
-    QGraphicsLineItem *redLine;
+    LineItem *blackLine;
+    LineItem *redLine;
 };
 
 #endif // LINE_H
