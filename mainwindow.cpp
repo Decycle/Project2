@@ -49,6 +49,25 @@ MainWindow::MainWindow(QWidget *parent)
         {780, 162}
     };
 
+//    VertexItem *vertex = new VertexItem(vertices[i][0] - 5, vertices[i][1] - 5, 10, 10, this->ui->console);
+//    vertex->setBrush(QBrush(Qt::black));
+//    vertex->setOpacity(0.5);
+//    scene->addItem(vertex);
+
+//    stadiums = new Stadium*[25];
+//    stadiums[0] = new Stadium(
+//                "American Family Fielddouble-dagger",
+//                4199,
+//                "Milwaukee, Wisconsin",
+//                false,
+//                true,
+//                "Milwaukee Brewers",
+//                2001,
+//                vertex
+//                );
+
+
+
     const int edges[49][3] = {
         {0, 1, 680},
         {1, 2, 340},
@@ -104,18 +123,18 @@ MainWindow::MainWindow(QWidget *parent)
     for(int i = 0; i < 25; i ++)
     {
 
-        VertexItem *vertex = new VertexItem(vertices[i][0] - 5, vertices[i][1] - 5, 10, 10);
+        VertexItem *vertex = new VertexItem(vertices[i][0] - 5, vertices[i][1] - 5, 10, 10, this->ui->console);
         vertex->setBrush(QBrush(Qt::black));
         vertex->setOpacity(0.5);
         scene->addItem(vertex);
-//        scene->addEllipse(vertices[i][0] - 5, vertices[i][1] - 5, 10, 10, QPen(Qt::black), QBrush(Qt::black));
     }
+//    this->ui->console->set
 
     lines = new Line*[49];
 
     for(int i = 0; i < 49; i++) {
         Line *line = new Line(vertices[edges[i][0]][0], vertices[edges[i][0]][1],
-                              vertices[edges[i][1]][0], vertices[edges[i][1]][1]);
+                              vertices[edges[i][1]][0], vertices[edges[i][1]][1], this->ui->console);
         line->addToScene(scene);
         lines[i] = line;
     }
@@ -142,6 +161,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete[] lines;
+    delete[] stadiums;
     delete ui;
 }
 

@@ -1,9 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "line.h"
+#include "stadium.h"
+
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include <line.h>
 #include <QTimer>
 
 QT_BEGIN_NAMESPACE
@@ -27,6 +29,7 @@ private:
     QGraphicsScene *scene;
     QTimer *timer;
     Line **lines;
+    Stadium **stadiums;
     int step;
 
 };

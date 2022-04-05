@@ -37,6 +37,19 @@
      <string>Start Path</string>
     </property>
    </widget>
+   <widget class="QTextBrowser" name="console">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>620</y>
+      <width>831</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: black</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

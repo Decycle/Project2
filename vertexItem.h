@@ -5,23 +5,25 @@
 #include <QDebug>
 #include <QPen>
 #include <QBrush>
+#include <QTextBrowser>
+#include <QGraphicsSceneMouseEvent>
 
 class VertexItem: public QGraphicsEllipseItem
 {
 public:
-    VertexItem(qreal x, qreal y, qreal width, qreal height)
+    VertexItem(qreal x, qreal y, qreal width, qreal height, QTextBrowser *console)
         :QGraphicsEllipseItem(x, y, width, height)
     {
-
+        this->console = console;
     }
 
     void mousePressEvent(QGraphicsSceneMouseEvent* event)
     {
-        qDebug() << "Show stadium info";
+        console->setText("Show Stadium");
     }
 
 private:
-
+    QTextBrowser *console;
 };
 
 

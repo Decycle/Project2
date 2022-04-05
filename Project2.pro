@@ -11,12 +11,14 @@ CONFIG += c++11
 SOURCES += \
     line.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    stadium.cpp
 
 HEADERS += \
     line.h \
     lineitem.h \
     mainwindow.h \
+    stadium.h \
     vertexItem.h
 
 FORMS += \
