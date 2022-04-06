@@ -327,6 +327,7 @@ void MainWindow::login()
 {
     this->loggedIn = true;
     this->ui->editStadiumBtn->setEnabled(true);
+    this->ui->editSouvenirBtn->setEnabled(true);
     this->ui->loginBtn->setText("LOGOUT");
 }
 
@@ -356,6 +357,7 @@ void MainWindow::on_loginBtn_clicked()
     {
         this->loggedIn = false;
         this->ui->editStadiumBtn->setEnabled(false);
+        this->ui->editSouvenirBtn->setEnabled(false);
         this->ui->loginBtn->setText("LOGIN");
     }
 }
