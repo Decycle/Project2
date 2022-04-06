@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="startPathBtn">
     <property name="geometry">
      <rect>
       <x>940</x>
@@ -34,7 +34,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Start Path</string>
+     <string>START PATH</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="console">
@@ -48,6 +48,51 @@
     </property>
     <property name="styleSheet">
      <string notr="true">color: black</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="randomStadiumBtn">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>150</y>
+      <width>91</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SHOW
+RANDOM
+STADIUM</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="loginBtn">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>20</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>LOGIN</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="editStadiumBtn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>310</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> EDIT
+STADIUM</string>
     </property>
    </widget>
   </widget>

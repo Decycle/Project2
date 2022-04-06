@@ -7,6 +7,10 @@ QPushButton {
   padding: 5%;
 }
 
+QPushButton:disabled {
+  color: grey;
+}
+
 QGraphicsView {
   border: none;
 }

@@ -19,10 +19,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void login();
 
 private slots:
-    void on_pushButton_clicked();
     void advance();
+
+    void on_startPathBtn_clicked();
+
+    void on_randomStadiumBtn_clicked();
+
+    void on_loginBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -31,6 +37,7 @@ private:
     Line **lines;
     Stadium **stadiums;
     int step;
+    bool loggedIn;
 
 };
 #endif // MAINWINDOW_H

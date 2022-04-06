@@ -22,13 +22,20 @@ Stadium::Stadium(QString name, int capacity, QString location, bool isAmerican, 
     this->vertex = vertex;
 }
 
+string Stadium::str()
+{
+    stringstream strstream;
+    strstream << *this;
+    return strstream.str();
+}
+
 ostream& operator<<(ostream& os, const Stadium& stadium)
 {
     os << "Stadium: " << stadium.name.toStdString() << endl;
     os << "Capacity: " << stadium.capacity << endl;
     os << "Location: " << stadium.location.toStdString() << endl;
-    os << "American: " << stadium.isAmerican << endl;
-    os << "Grass: " << stadium.hasGrass << endl;
+    os << (stadium.isAmerican ? "American" : "National")<< endl;
+    os << (stadium.hasGrass ? "Grass" : "Artificial turf") << endl;
     os << "Team: " << stadium.team.toStdString() << endl;
     os << "Opened: " << stadium.opened << endl;
     return os;

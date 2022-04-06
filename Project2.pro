@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     graph.cpp \
     line.cpp \
+    loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
     stadium.cpp
@@ -19,11 +20,13 @@ HEADERS += \
     graph.h \
     line.h \
     lineitem.h \
+    loginpage.h \
     mainwindow.h \
     stadium.h \
     vertexItem.h
 
 FORMS += \
+    loginpage.ui \
     mainwindow.ui
 
 # Default rules for deployment.

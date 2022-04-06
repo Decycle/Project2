@@ -3,7 +3,9 @@
 
 #include <QString>
 #include <iostream>
-#include <vertexItem.h>
+#include <sstream>
+
+class VertexItem;
 
 using namespace std;
 
@@ -15,6 +17,7 @@ public:
             bool hasGrass, QString team, int opened,
             VertexItem *vertex);
     friend ostream& operator<<(ostream& os, const Stadium& stadium);
+    string str();
     VertexItem *vertex;
 
 private:
