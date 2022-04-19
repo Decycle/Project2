@@ -10,7 +10,7 @@ Stadium::Stadium()
     opened = 0;
 }
 
-Stadium::Stadium(QString name, int capacity, QString location, bool isAmerican, bool hasGrass, QString team, int opened, VertexItem *vertex)
+Stadium::Stadium(QString name, int capacity, QString location, bool isAmerican, bool hasGrass, QString team, int opened)
 {
     this->name = name;
     this->capacity = capacity;
@@ -19,7 +19,6 @@ Stadium::Stadium(QString name, int capacity, QString location, bool isAmerican, 
     this->hasGrass = hasGrass;
     this->team = team;
     this->opened = opened;
-    this->vertex = vertex;
 }
 
 string Stadium::str()

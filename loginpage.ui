@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgba(0, 195, 255, 100);color:black;padding: 5px;</string>
+    <string notr="true">background-color:rgba(200, 200, 255, 100);color:black;padding: 5px; border: 1px solid #999; border-radius: 4px;</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="password">
@@ -55,7 +55,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgba(0, 195, 255, 100);color:black;padding: 5px;</string>
+    <string notr="true">background-color:rgba(200, 200, 255, 100);color:black;padding: 5px; border: 1px solid #999; border-radius: 4px;</string>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
@@ -83,7 +83,7 @@
      <x>70</x>
      <y>140</y>
      <width>71</width>
-     <height>20</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">

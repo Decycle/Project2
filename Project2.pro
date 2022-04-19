@@ -9,25 +9,32 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    canvasmanager.cpp \
     graph.cpp \
     line.cpp \
     loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
-    stadium.cpp
+    stadium.cpp \
+    stadiumeditpage.cpp \
+    stadiummaster.cpp
 
 HEADERS += \
+    canvasmanager.h \
     graph.h \
     line.h \
     lineitem.h \
     loginpage.h \
     mainwindow.h \
     stadium.h \
+    stadiumeditpage.h \
+    stadiummaster.h \
     vertexItem.h
 
 FORMS += \
     loginpage.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    stadiumeditpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

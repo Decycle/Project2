@@ -18,19 +18,18 @@ public:
         setPen(pen);
     }
 
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+    void hoverEnterEvent(QGraphicsSceneHoverEvent*)
     {
         pen.setWidth(3);
         setPen(pen);
-
     }
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent*)
     {
         pen.setWidth(2);
         setPen(pen);
     }
 
-    void mousePressEvent(QGraphicsSceneMouseEvent* event)
+    void mousePressEvent(QGraphicsSceneMouseEvent*)
     {
 //        console->setText("Show Line");
     }

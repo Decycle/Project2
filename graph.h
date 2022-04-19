@@ -7,6 +7,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -61,7 +62,7 @@ public:
     void MSTPrim(string);
     //find the minimum spanning tree using Kruskal's algorithm
     void MSTKruskal();
-    void printGraph();
+    string printGraph();
 };
 
 #endif

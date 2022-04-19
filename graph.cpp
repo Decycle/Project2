@@ -103,27 +103,29 @@ int Graph::getId(string name)
  * POST-CONDITIONS:
  * Prints the adjacency matrix
  * ***********************************************/
-void Graph::printGraph()
+string Graph::printGraph()
 {
-    cout << "  ";
+    stringstream ss;
 
     for(int i = 0; i < numVertices; i++)
     {
-        cout << names[i] << " ";
+        ss << names[i] << ",";
     }
 
-    cout << endl;
+    ss << endl;
 
     for (int i = 0; i < numVertices; i++)
     {
-        cout << names[i] << " ";
+        ss << names[i] << ",";
 
         for (int j = 0; j < numVertices; j++)
         {
-            cout << adjMatrix[i][j] << " ";
+            ss << adjMatrix[i][j] << ",";
         }
-        cout << endl;
+        ss << endl;
     }
+
+    return ss.str();
 }
 
 /*************************************************

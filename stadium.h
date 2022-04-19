@@ -14,11 +14,9 @@ class Stadium
 public:
     Stadium();
     Stadium(QString name, int capacity, QString location, bool isAmerican,
-            bool hasGrass, QString team, int opened,
-            VertexItem *vertex);
+            bool hasGrass, QString team, int opened);
     friend ostream& operator<<(ostream& os, const Stadium& stadium);
     string str();
-    VertexItem *vertex;
 
 private:
     QString name;

@@ -3,10 +3,10 @@
 
 #include "line.h"
 #include "stadium.h"
+#include "canvasmanager.h"
+#include "stadiummaster.h"
 
 #include <QMainWindow>
-#include <QGraphicsScene>
-#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,8 +22,6 @@ public:
     void login();
 
 private slots:
-    void advance();
-
     void on_startPathBtn_clicked();
 
     void on_randomStadiumBtn_clicked();
@@ -32,11 +30,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *scene;
-    QTimer *timer;
-    Line **lines;
-    Stadium **stadiums;
-    int step;
+    CanvasManager *canvas;
+    StadiumMaster *stadiumMaster;
+    bool selectStadiumIndex[30] = {false};
     bool loggedIn;
 
 };
