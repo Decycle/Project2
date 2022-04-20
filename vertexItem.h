@@ -50,7 +50,6 @@ public:
         }
         else if (event->buttons() & Qt::RightButton)
         {
-            //TODO: select stadium
             if(!selectStadiumIndex[index])
             {
                 selectStadiumIndex[index] = true;
@@ -59,7 +58,7 @@ public:
             else
             {
                 selectStadiumIndex[index] = false;
-                this->setOpacity(0.0);
+                this->setOpacity(0.01);
             }
 
         }

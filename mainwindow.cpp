@@ -33,7 +33,41 @@ void MainWindow::login()
 
 void MainWindow::on_startPathBtn_clicked()
 {
-    this->canvas->startAnimation();
+    int pointA = -1;
+    int pointB = -1;
+
+    for(int i = 0; i < 100; i ++)
+    {
+        if(selectStadiumIndex[i])
+        {
+            if(pointA == -1)
+                pointA = i;
+            else
+                pointB = i;
+        }
+    }
+
+
+    int **shortest_paths = this->stadiumMaster->stadiumGraph.findShortestPaths(pointA);
+
+    int p = pointB;
+
+    int points[100] = {p};
+    int pointsCount = 0;
+
+    while(p != -1)
+    {
+        pointsCount ++;
+        p = shortest_paths[p][1];
+        points[pointsCount] = p;
+    }
+
+    this->canvas->startAnimation(points, pointsCount);
+
+    for(int i = 0; i < 100; i ++)
+    {
+        this->selectStadiumIndex[i] = false;
+    }
 }
 
 void MainWindow::on_randomStadiumBtn_clicked()
@@ -57,5 +91,21 @@ void MainWindow::on_loginBtn_clicked()
         this->ui->editStadiumBtn->setEnabled(false);
         this->ui->loginBtn->setText("LOGIN");
     }
+}
+
+
+void MainWindow::on_clearAllBtn_clicked()
+{
+    this->canvas->clearCanvas();
+    for(int i = 0; i < 100; i ++)
+    {
+        this->selectStadiumIndex[i] = 0;
+    }
+}
+
+
+void MainWindow::on_editStadiumBtn_clicked()
+{
+
 }
 

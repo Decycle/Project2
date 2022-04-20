@@ -13,10 +13,13 @@ class CanvasManager: public QObject
 public:
     CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console, Stadium **stadiums, bool *selectStadiumIndex);
     ~CanvasManager();
-    void startAnimation();
+    void startAnimation(int* points, int pointCount);
+    void clearCanvas();
 private slots:
     void advance();
 private:
+    int** edgeList;
+    int* selectedLines;
     QGraphicsScene *scene;
     QTimer *timer;
     VertexItem **vertices;

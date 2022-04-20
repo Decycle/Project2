@@ -48,11 +48,11 @@ public:
     //find the shortest path from the source vertex
     // to all other vertices using Dijkstra's algorithm
     // using id
-    void findShortestPaths(int);
+    int** findShortestPaths(int);
     //find the shortest path from the source vertex
     // to all other vertices using Dijkstra's algorithm
     // using name
-    void findShortestPaths(string);
+    int** findShortestPaths(string);
 
     //find the minimum spanning tree using Prim's algorithm
     // using id

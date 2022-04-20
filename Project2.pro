@@ -15,6 +15,7 @@ SOURCES += \
     loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
+    modifystadium.cpp \
     stadium.cpp \
     stadiumeditpage.cpp \
     stadiummaster.cpp
@@ -26,6 +27,7 @@ HEADERS += \
     lineitem.h \
     loginpage.h \
     mainwindow.h \
+    modifystadium.h \
     stadium.h \
     stadiumeditpage.h \
     stadiummaster.h \
@@ -34,6 +36,7 @@ HEADERS += \
 FORMS += \
     loginpage.ui \
     mainwindow.ui \
+    modifystadium.ui \
     stadiumeditpage.ui
 
 # Default rules for deployment.

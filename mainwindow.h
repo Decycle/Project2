@@ -28,11 +28,15 @@ private slots:
 
     void on_loginBtn_clicked();
 
+    void on_clearAllBtn_clicked();
+
+    void on_editStadiumBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     CanvasManager *canvas;
     StadiumMaster *stadiumMaster;
-    bool selectStadiumIndex[30] = {false};
+    bool selectStadiumIndex[100] = {false};
     bool loggedIn;
 
 };

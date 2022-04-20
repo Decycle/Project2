@@ -8,6 +8,8 @@
 #include <iostream>
 #include <iomanip>
 
+#include <QDebug>
+
 using namespace std;
 
 /***************
@@ -31,7 +33,7 @@ Graph::Graph()
     adjMatrix = new int*[CAPACITY];
     for (int i = 0; i < CAPACITY; i++)
     {
-        adjMatrix[i] = new int[CAPACITY];
+        adjMatrix[i] = new int[CAPACITY] {0};
     }
     numVertices = 0;
     numEdges = 0;
@@ -141,52 +143,84 @@ string Graph::printGraph()
  * Prints the shortest paths from a vertex to all
  * other vertices
  * ***********************************************/
-void Graph::findShortestPaths(int start)
+int** Graph::findShortestPaths(int start)
 {
-    int visited[numVertices];
+    bool visited[numVertices];
     int distance[numVertices];
     int parent[numVertices];
 
     for (int i = 0; i < numVertices; i++)
     {
-        visited[i] = 0;
-        distance[i] = INT_MAX;
+        visited[i] = false;
+        distance[i] = INT32_MAX;
         parent[i] = -1;
     }
 
     distance[start] = 0;
 
-    for(int node = 0; node < numVertices; node++)
+    for(int count = 0; count < numVertices; count++)
     {
+        int min = INT32_MAX;
+        int min_index = 0;
+
+        for (int v = 0; v < numVertices; v++)
+            if (!visited[v] && distance[v] <= min)
+            {
+                min = distance[v];
+                min_index = v;
+            }
+
+        int node = min_index;
+
+
         for(int i = 0; i < numVertices; i++)
         {
-            if(visited[i] == 0 && adjMatrix[node][i] != 0 && distance[node] + adjMatrix[node][i] < distance[i])
+            if(!visited[i] && adjMatrix[node][i] && distance[node] != INT32_MAX
+            && distance[node] + adjMatrix[node][i] < distance[i])
             {
                 distance[i] = distance[node] + adjMatrix[node][i];
                 parent[i] = node;
+
+                // qDebug() << "Distance: " << distance[i] << '\n';
+                // qDebug() << "Parent: " << parent[i] << '\n';
             }
         }
         visited[node] = 1;
     }
 
-    //output path
-    cout << "---Dijkstra's Algorithm (starting from " << names[start] <<")---" << endl;
+    int **output = new int*[numVertices];
 
-    for(int i = 0; i < numVertices; i++)
+    for (int i = 0; i < numVertices; i++)
     {
-        cout << names[i] << ": " << distance[i];
+        output[i] = new int[2];
+        output[i][0] = distance[i];
+        output[i][1] = parent[i];
 
-        string path = "";
-
-        int p = i;
-        while(p != -1)
-        {
-            path = names[p] + ", " + path;
-            p = parent[p];
-        }
-
-        cout << " {" << path.substr(0, path.length() - 2) << "}" << endl;
+        // qDebug() <<"Output: " << distance[i] << parent[i] << '\n';
     }
+
+    // qDebug() << numVertices;
+
+//    output path
+    //  qDebug() << "---Dijkstra's Algorithm (starting from " << QString::fromStdString(names[start]) <<")---\n";
+
+    //  for(int i = 0; i < numVertices; i++)
+    //  {
+    //      qDebug() << QString::fromStdString(names[i]) << ": " << distance[i];
+
+    //      string path = "";
+
+    //      int p = i;
+    //      while(p != -1)
+    //      {
+    //          path = names[p] + ", " + path;
+    //          p = parent[p];
+    //      }
+
+    //      qDebug() << " {" << QString::fromStdString(path.substr(0, path.length() - 2)) << "}\n";
+    //  }
+
+    return output;
 }
 
 /*************************************************
@@ -202,10 +236,10 @@ void Graph::findShortestPaths(int start)
  * Prints the shortest paths from a vertex to all
  * other vertices
  * ***********************************************/
-void Graph::findShortestPaths(string start)
+int** Graph::findShortestPaths(string start)
 {
     int startId = getId(start);
-    findShortestPaths(startId);
+    return findShortestPaths(startId);
 }
 
 /*************************************************

@@ -15,7 +15,7 @@ public:
     Stadium **stadiums;
     int stadiumCount;
     bool *selectStadiumIndex;
-private:
+//private:
     Graph stadiumGraph;
 };
 

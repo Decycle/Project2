@@ -17,9 +17,9 @@ public:
             bool hasGrass, QString team, int opened);
     friend ostream& operator<<(ostream& os, const Stadium& stadium);
     string str();
+    QString name;
 
 private:
-    QString name;
     int capacity;
     QString location;
     bool isAmerican;

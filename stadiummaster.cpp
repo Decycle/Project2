@@ -198,11 +198,11 @@ StadiumMaster::StadiumMaster(bool *selectStadiumIndex)
         { 5, 4, 80 },
         { 4, 9, 195 },
         { 14, 9, 1255 },
-        { 8, 1, 0 },
-        { 17, 22, 0 },
-        { 12, 28, 0 },
-        { 16, 18, 0 },
-        { 4, 29, 0 }
+        { 8, 1, 1 },
+        { 17, 22, 1 },
+        { 12, 28, 1 },
+        { 16, 18, 1 },
+        { 4, 29, 1 }
     };
 
     for(int i = 0; i < 54; i++)
@@ -210,6 +210,5 @@ StadiumMaster::StadiumMaster(bool *selectStadiumIndex)
         stadiumGraph.addUndirectedEdge(edgesList[i][0], edgesList[i][1], edgesList[i][2]);
     }
 
-    string graphStr = stadiumGraph.printGraph();
-    qDebug() << QString::fromStdString(graphStr);
+//    qDebug() << QString::fromStdString(stadiumGraph.printGraph());
 }

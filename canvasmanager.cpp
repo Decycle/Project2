@@ -43,7 +43,7 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
         { 548, 210 },
         { 753, 197 }
     };
-    const int edgesList[54][3] = {
+    int edgesList[100][3] = {
         { 24, 17, 680 },
         { 17, 1, 340 },
         { 1, 19, 110 },
@@ -93,12 +93,22 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
         { 5, 4, 80 },
         { 4, 9, 195 },
         { 14, 9, 1255 },
-        { 8, 1, 0 },
-        { 17, 22, 0 },
-        { 12, 28, 0 },
-        { 16, 18, 0 },
-        { 4, 29, 0 }
+        { 8, 1, 1 },
+        { 17, 22, 1 },
+        { 12, 28, 1 },
+        { 16, 18, 1 },
+        { 4, 29, 1 }
     };
+
+    edgeList = new int*[100];
+
+    for(int i = 0; i < 100; i ++)
+    {
+        edgeList[i] = new int[3];
+        edgeList[i][0] = edgesList[i][0];
+        edgeList[i][1] = edgesList[i][1];
+        edgeList[i][2] = edgesList[i][2];
+    }
 
     vertices = new VertexItem*[100];
 
@@ -107,10 +117,23 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
     {
         VertexItem *vertex = new VertexItem(verticesList[i][0] - 10, verticesList[i][1] - 10, 20, 20, console, i, selectStadiumIndex);
         vertex->setBrush(QBrush(Qt::black));
-        vertex->setOpacity(0.01);
+
+        if(selectStadiumIndex[i])
+        {
+            vertex->setOpacity(0.5);
+        }
+        else
+        {
+            vertex->setOpacity(0.01);
+        }
+
         scene->addItem(vertex);
         vertex->setStadium(stadiums[i]);
         vertices[i] = vertex;
+
+        QGraphicsTextItem *name = scene->addText(stadiums[i]->name);
+        name->setPos(verticesList[i][0], verticesList[i][1]);
+        name->setDefaultTextColor(Qt::black);
     }
 
     //setup alternative stadiums
@@ -135,6 +158,13 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
         lines[i] = line;
     }
 
+    selectedLines = new int[100];
+
+    for(int i = 0; i < 100; i ++)
+    {
+        selectedLines[i] = 0;
+    }
+
     timer = new QTimer();
     connect(timer, &QTimer::timeout, this, &CanvasManager::advance);
     step = 0;
@@ -146,7 +176,13 @@ CanvasManager::~CanvasManager()
     {
         delete lines[i];
     }
+    for(int i = 0; i < 100; i ++)
+    {
+        delete edgeList[i];
+    }
     delete[] lines;
+    delete[] selectedLines;
+    delete[] edgeList;
     delete timer;
 }
 
@@ -160,15 +196,66 @@ void CanvasManager::advance()
 
     for(int i = 0; i < 54; i++)
     {
-        lines[i]->setDistance(steps - lineLengths);
-        lineLengths += lines[i]->length();
+        if(selectedLines[i] >= 1)
+        {
+            lines[i]->setDistance(steps - lineLengths);
+            lineLengths += lines[i]->length();
+        }
     }
 
     step += 1;
 }
 
-void CanvasManager::startAnimation()
+void CanvasManager::startAnimation(int* points, int pointCount)
 {
     step = 0;
     timer->start(40);
+
+    for(int i = 0; i < 100; i ++)
+    {
+        selectedLines[i] = 0;
+    }
+
+    for(int i = 0; i < pointCount - 1; i ++)
+    {
+        int point1 = points[i];
+        int point2 = points[i + 1];
+
+        // qDebug() << point1 << " to " << point2;
+
+        for(int j = 0; j < 54; j ++)
+        {
+            if(edgeList[j][0] == point1 && edgeList[j][1] == point2)
+            {
+                selectedLines[j] = 1;
+            }
+            else if(edgeList[j][0] == point2 && edgeList[j][1] == point1)
+            {
+                selectedLines[j] = 2;
+            }
+        }
+    }
+
+    for(int i = 0; i < 30; i ++)
+    {
+        this->vertices[i]->setOpacity(0.01);
+    }
+}
+
+void CanvasManager::clearCanvas()
+{
+    for(int i = 0; i < 30; i ++)
+    {
+        this->vertices[i]->setOpacity(0.01);
+    }
+
+    for(int i = 0; i < 100; i ++)
+    {
+        selectedLines[i] = 0;
+    }
+
+    for(int i = 0; i < 54; i ++)
+    {
+        lines[i]->setDistance(0);
+    }
 }
