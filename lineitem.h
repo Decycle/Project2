@@ -9,13 +9,14 @@
 class LineItem: public QGraphicsLineItem
 {
 public:
-    LineItem(qreal x1, qreal y1, qreal x2, qreal y2, QPen pen, QTextBrowser *console)
+    LineItem(qreal x1, qreal y1, qreal x2, qreal y2, QPen pen, QTextBrowser *console, float distance)
         :QGraphicsLineItem(x1, y1, x2, y2)
     {
         setAcceptHoverEvents(true);
         this->pen = pen;
         this->console = console;
         setPen(pen);
+        this->distance = distance;
     }
 
     void hoverEnterEvent(QGraphicsSceneHoverEvent*)
@@ -31,12 +32,13 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent*)
     {
-//        console->setText("Show Line");
+        console->setText("Distance: " + QString::number(distance));
     }
 
 private:
     QTextBrowser *console;
     QPen pen;
+    float distance;
 };
 
 #endif // LINEITEM_H

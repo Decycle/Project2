@@ -18,8 +18,6 @@ public:
     friend ostream& operator<<(ostream& os, const Stadium& stadium);
     string str();
     QString name;
-
-private:
     int capacity;
     QString location;
     bool isAmerican;

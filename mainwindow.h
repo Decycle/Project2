@@ -20,17 +20,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void login();
-
 private slots:
     void on_startPathBtn_clicked();
-
     void on_randomStadiumBtn_clicked();
-
     void on_loginBtn_clicked();
-
     void on_clearAllBtn_clicked();
-
     void on_editStadiumBtn_clicked();
+    void on_showSelectedStadiumsBtn_clicked();
+    void on_searchStadiumsBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

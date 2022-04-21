@@ -53,7 +53,7 @@ public:
             if(!selectStadiumIndex[index])
             {
                 selectStadiumIndex[index] = true;
-                this->setOpacity(0.5);
+                this->setOpacity(1.0);
             }
             else
             {

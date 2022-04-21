@@ -7,20 +7,22 @@ Line::Line()
     x2 = 0.;
     y2 = 0.;
 
-    redLine = new LineItem(x1, y1, x1, y1, QPen(Qt::red, 2.), nullptr);
-    blackLine = new LineItem(x1, y1, x2, y2, QPen(Qt::black, 2.), nullptr);
+    redLine = new LineItem(x1, y1, x1, y1, QPen(Qt::red, 2.), nullptr, distance);
+    blackLine = new LineItem(x1, y1, x2, y2, QPen(Qt::black, 2.), nullptr, distance);
+    this->distance = 0;
 }
 
-Line::Line(float x1, float y1, float x2, float y2, QTextBrowser *console)
+Line::Line(float x1, float y1, float x2, float y2, QTextBrowser *console, float distance)
 {
     this->x1 = x1;
     this->y1 = y1;
     this->x2 = x2;
     this->y2 = y2;
 
-    redLine = new LineItem(x1, y1, x1, y1, QPen(Qt::red, 2.), console);
+    redLine = new LineItem(x1, y1, x1, y1, QPen(Qt::red, 2.), console, distance);
     redLine->setZValue(1);
-    blackLine = new LineItem(x1, y1, x2, y2, QPen(Qt::black, 2.), console);
+    blackLine = new LineItem(x1, y1, x2, y2, QPen(Qt::black, 2.), console, distance);
+    this->distance = distance;
 }
 
 void Line::addToScene(QGraphicsScene *scene)

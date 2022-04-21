@@ -35,7 +35,7 @@ public:
     //destructor
     ~Graph();
     //add a vertex to the graph with name
-    void addVertex(string);
+    void addVertex (string);
     //add an edge to the graph with id
     void addEdge(int, int, int);
     //add an edge to the graph with name

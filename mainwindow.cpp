@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "vertexItem.h"
 #include "loginpage.h"
+#include "stadiumeditpage.h"
 
 #include <QGraphicsScene>
 #include <QDebug>
@@ -63,11 +64,6 @@ void MainWindow::on_startPathBtn_clicked()
     }
 
     this->canvas->startAnimation(points, pointsCount);
-
-    for(int i = 0; i < 100; i ++)
-    {
-        this->selectStadiumIndex[i] = false;
-    }
 }
 
 void MainWindow::on_randomStadiumBtn_clicked()
@@ -101,11 +97,51 @@ void MainWindow::on_clearAllBtn_clicked()
     {
         this->selectStadiumIndex[i] = 0;
     }
+
+    this->ui->console->setText("");
 }
 
 
 void MainWindow::on_editStadiumBtn_clicked()
 {
+    int stadium = -1;
 
+    for(int i = 0; i < 100; i ++)
+    {
+        if(this->selectStadiumIndex[i])
+        {
+            stadium = i;
+        }
+    }
+
+    if(stadium != -1)
+    {
+        StadiumEditPage stadiumEditPage(nullptr, this->stadiumMaster->stadiums[stadium]);
+        stadiumEditPage.setModal(true);
+        stadiumEditPage.exec();
+    }
+}
+
+void MainWindow::on_showSelectedStadiumsBtn_clicked()
+{
+    string output;
+
+    for(int i = 0; i < 100; i ++)
+    {
+        if(this->selectStadiumIndex[i])
+        {
+            output += this->stadiumMaster->stadiums[i]->str() + '\n';
+        }
+    }
+
+    this->ui->console->setText(QString::fromStdString(output));
+}
+
+
+void MainWindow::on_searchStadiumsBtn_clicked()
+{
+    StadiumEditPage stadiumEditPage(nullptr, this->selectStadiumIndex);
+    stadiumEditPage.setModal(true);
+    stadiumEditPage.exec();
 }
 

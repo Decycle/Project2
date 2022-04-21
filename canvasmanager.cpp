@@ -27,7 +27,7 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
         { 548, 210 },
         { 455, 267 },
         { 703, 509 },
-        { 440, 465 },
+        { 440, 455 },
         { 715, 239 },
         { 37, 240 },
         { 715, 239 },
@@ -116,11 +116,13 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
     for(int i = 0; i < 30; i ++)
     {
         VertexItem *vertex = new VertexItem(verticesList[i][0] - 10, verticesList[i][1] - 10, 20, 20, console, i, selectStadiumIndex);
-        vertex->setBrush(QBrush(Qt::black));
+        vertex->setBrush(QBrush(QColor(137, 221, 139)));
+        vertex->setPen(Qt::NoPen);
+        vertex->setZValue(3);
 
         if(selectStadiumIndex[i])
         {
-            vertex->setOpacity(0.5);
+            vertex->setOpacity(1.0);
         }
         else
         {
@@ -131,9 +133,14 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
         vertex->setStadium(stadiums[i]);
         vertices[i] = vertex;
 
-        QGraphicsTextItem *name = scene->addText(stadiums[i]->name);
-        name->setPos(verticesList[i][0], verticesList[i][1]);
-        name->setDefaultTextColor(Qt::black);
+        QGraphicsEllipseItem *circle = scene->addEllipse(verticesList[i][0] - 8, verticesList[i][1] - 8, 16, 16);
+        circle->setBrush(QBrush(Qt::white));
+        circle->setPen(Qt::NoPen);
+        circle->setZValue(2);
+
+//        QGraphicsTextItem *name = scene->addText(stadiums[i]->name);
+//        name->setPos(verticesList[i][0], verticesList[i][1]);
+//        name->setDefaultTextColor(Qt::black);
     }
 
     //setup alternative stadiums
@@ -153,7 +160,8 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
 
     for(int i = 0; i < 54; i++) {
         Line *line = new Line(verticesList[edgesList[i][0]][0], verticesList[edgesList[i][0]][1],
-                              verticesList[edgesList[i][1]][0], verticesList[edgesList[i][1]][1], console);
+                              verticesList[edgesList[i][1]][0], verticesList[edgesList[i][1]][1], console,
+                              edgesList[i][2]);
         line->addToScene(scene);
         lines[i] = line;
     }
@@ -234,11 +242,6 @@ void CanvasManager::startAnimation(int* points, int pointCount)
                 selectedLines[j] = 2;
             }
         }
-    }
-
-    for(int i = 0; i < 30; i ++)
-    {
-        this->vertices[i]->setOpacity(0.01);
     }
 }
 
