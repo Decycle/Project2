@@ -35,6 +35,7 @@ void MainWindow::selectStadium(int i)
     this->selectStadiumIndex[i] = true;
     this->canvas->vertices[i]->setOpacity(1.0);
 }
+
 void MainWindow::clearSelection()
 {
     for(int i = 0; i < 30; i ++)
@@ -91,19 +92,6 @@ void MainWindow::on_startPathBtn_clicked()
         p = shortest_paths[p][1];
         points[pointsCount] = p;
     }
-
-    //      qDebug() << QString::fromStdString(names[i]) << ": " << distance[i];
-
-    //      string path = "";
-
-    //      int p = i;
-    //      while(p != -1)
-    //      {
-    //          path = names[p] + ", " + path;
-    //          p = parent[p];
-    //      }
-
-    //      qDebug() << " {" << QString::fromStdString(path.substr(0, path.length() - 2)) << "}\n";
 
     output += "Total Distance Travelled: " + QString::number(shortest_paths[pointB][0]) + '\n';
     output += "Total Stadiums Visited: " + QString::number(pointsCount) + '\n';
@@ -193,5 +181,14 @@ void MainWindow::on_searchStadiumsBtn_clicked()
     StadiumEditPage stadiumEditPage(nullptr, this);
     stadiumEditPage.setModal(true);
     stadiumEditPage.exec();
+}
+
+
+void MainWindow::on_selectAllBtn_clicked()
+{
+    for(int i = 0; i < 30; i ++)
+    {
+        selectStadium(i);
+    }
 }
 

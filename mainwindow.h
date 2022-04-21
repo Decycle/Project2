@@ -32,6 +32,8 @@ private slots:
     void on_showSelectedStadiumsBtn_clicked();
     void on_searchStadiumsBtn_clicked();
 
+    void on_selectAllBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     CanvasManager *canvas;

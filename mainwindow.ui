@@ -138,6 +138,20 @@ STADIUMS</string>
 STADIUMS</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="selectAllBtn">
+    <property name="geometry">
+     <rect>
+      <x>1460</x>
+      <y>230</y>
+      <width>91</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SELECT
+ALL</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
