@@ -34,7 +34,8 @@
      </rect>
     </property>
     <property name="text">
-     <string>START PATH</string>
+     <string>FIND
+PATH</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="console">
