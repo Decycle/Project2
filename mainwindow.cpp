@@ -162,12 +162,14 @@ void MainWindow::on_editStadiumBtn_clicked()
         }
     }
 
-    if(stadium != -1)
+    if(stadium == -1)
     {
-        StadiumEditPage stadiumEditPage(nullptr, this->stadiumMaster->stadiums[stadium]);
-        stadiumEditPage.setModal(true);
-        stadiumEditPage.exec();
+        this->ui->console->setText("No vertex selected");
+        return;
     }
+    StadiumEditPage stadiumEditPage(nullptr, this->stadiumMaster->stadiums[stadium]);
+    stadiumEditPage.setModal(true);
+    stadiumEditPage.exec();
 }
 
 void MainWindow::on_showSelectedStadiumsBtn_clicked()

@@ -47,7 +47,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: black</string>
+     <string notr="true">color: black;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="randomStadiumBtn">
