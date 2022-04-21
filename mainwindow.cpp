@@ -25,6 +25,25 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+Stadium** MainWindow::getStadiums()
+{
+    return this->stadiumMaster->stadiums;
+}
+
+void MainWindow::selectStadium(int i)
+{
+    this->selectStadiumIndex[i] = true;
+    this->canvas->vertices[i]->setOpacity(1.0);
+}
+void MainWindow::clearSelection()
+{
+    for(int i = 0; i < 30; i ++)
+    {
+        this->selectStadiumIndex[i] = false;
+        this->canvas->vertices[i]->setOpacity(0.0);
+    }
+}
+
 void MainWindow::login()
 {
     this->loggedIn = true;
@@ -140,7 +159,7 @@ void MainWindow::on_showSelectedStadiumsBtn_clicked()
 
 void MainWindow::on_searchStadiumsBtn_clicked()
 {
-    StadiumEditPage stadiumEditPage(nullptr, this->selectStadiumIndex);
+    StadiumEditPage stadiumEditPage(nullptr, this);
     stadiumEditPage.setModal(true);
     stadiumEditPage.exec();
 }

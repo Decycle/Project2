@@ -15,6 +15,7 @@ public:
     ~CanvasManager();
     void startAnimation(int* points, int pointCount);
     void clearCanvas();
+    VertexItem **vertices;
 private slots:
     void advance();
 private:
@@ -22,7 +23,6 @@ private:
     int* selectedLines;
     QGraphicsScene *scene;
     QTimer *timer;
-    VertexItem **vertices;
     Line **lines;
     int step;
 };

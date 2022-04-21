@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "stadium.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class StadiumEditPage;
@@ -14,7 +15,7 @@ class StadiumEditPage : public QDialog
 
 public:
     explicit StadiumEditPage(QWidget *parent = nullptr, Stadium *stadium = nullptr);
-    explicit StadiumEditPage(QWidget *parent = nullptr, bool *selectedStadiums = nullptr);
+    explicit StadiumEditPage(QWidget *parent = nullptr, MainWindow *mainWindow = nullptr);
     ~StadiumEditPage();
 
 private slots:
@@ -24,7 +25,7 @@ private slots:
 private:
     Ui::StadiumEditPage *ui;
     Stadium *stadium;
-    bool *selectedStadiums;
+    MainWindow *mainWindow;
     bool edit;
 };
 

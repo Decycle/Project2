@@ -20,6 +20,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void login();
+    void selectStadium(int i);
+    void clearSelection();
+    Stadium** getStadiums();
 private slots:
     void on_startPathBtn_clicked();
     void on_randomStadiumBtn_clicked();
