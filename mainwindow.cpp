@@ -67,6 +67,12 @@ void MainWindow::on_startPathBtn_clicked()
         }
     }
 
+    if(pointA == -1 && pointB == -1)
+    {
+        this->ui->console->setText("Please select at least two vertices");
+        return;
+    }
+
 
     int **shortest_paths = this->stadiumMaster->stadiumGraph.findShortestPaths(pointA);
 
@@ -75,12 +81,35 @@ void MainWindow::on_startPathBtn_clicked()
     int points[100] = {p};
     int pointsCount = 0;
 
+    QString output = "";
+    QString path = "";
+
     while(p != -1)
     {
         pointsCount ++;
+        path += this->stadiumMaster->stadiums[p]->name + "-> \n";
         p = shortest_paths[p][1];
         points[pointsCount] = p;
     }
+
+    //      qDebug() << QString::fromStdString(names[i]) << ": " << distance[i];
+
+    //      string path = "";
+
+    //      int p = i;
+    //      while(p != -1)
+    //      {
+    //          path = names[p] + ", " + path;
+    //          p = parent[p];
+    //      }
+
+    //      qDebug() << " {" << QString::fromStdString(path.substr(0, path.length() - 2)) << "}\n";
+
+    output += "Total Distance Travelled: " + QString::number(shortest_paths[pointB][0]) + '\n';
+    output += "Total Stadiums Visited: " + QString::number(pointsCount) + '\n';
+    output += "Path: \n" + path.chopped(4);
+
+    this->ui->console->setText(output);
 
     this->canvas->startAnimation(points, pointsCount);
 }
