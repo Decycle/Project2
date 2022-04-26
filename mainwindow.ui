@@ -44,7 +44,7 @@ PATH</string>
       <x>950</x>
       <y>20</y>
       <width>331</width>
-      <height>721</height>
+      <height>591</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -150,6 +150,20 @@ STADIUMS</string>
     <property name="text">
      <string>SELECT
 ALL</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="tableViewBtn">
+    <property name="geometry">
+     <rect>
+      <x>1460</x>
+      <y>20</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TABLE
+VIEW</string>
     </property>
    </widget>
   </widget>

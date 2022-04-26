@@ -31,8 +31,8 @@ private slots:
     void on_editStadiumBtn_clicked();
     void on_showSelectedStadiumsBtn_clicked();
     void on_searchStadiumsBtn_clicked();
-
     void on_selectAllBtn_clicked();
+    void on_tableViewBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

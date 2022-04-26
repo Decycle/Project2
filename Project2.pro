@@ -17,7 +17,8 @@ SOURCES += \
     mainwindow.cpp \
     stadium.cpp \
     stadiumeditpage.cpp \
-    stadiummaster.cpp
+    stadiummaster.cpp \
+    tableviewpage.cpp
 
 HEADERS += \
     canvasmanager.h \
@@ -29,12 +30,14 @@ HEADERS += \
     stadium.h \
     stadiumeditpage.h \
     stadiummaster.h \
+    tableviewpage.h \
     vertexItem.h
 
 FORMS += \
     loginpage.ui \
     mainwindow.ui \
-    stadiumeditpage.ui
+    stadiumeditpage.ui \
+    tableviewpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

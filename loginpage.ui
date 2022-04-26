@@ -29,7 +29,7 @@
     <string notr="true">border:none</string>
    </property>
    <property name="text">
-    <string>Login</string>
+    <string>LOGIN</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="username">
@@ -106,7 +106,7 @@
     <string notr="true">border:none</string>
    </property>
    <property name="text">
-    <string>Cancel</string>
+    <string>CANCEL</string>
    </property>
   </widget>
   <widget class="QLabel" name="messageLabel">

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "tableviewpage.h"
 #include "vertexItem.h"
 #include "loginpage.h"
 #include "stadiumeditpage.h"
@@ -190,5 +191,14 @@ void MainWindow::on_selectAllBtn_clicked()
     {
         selectStadium(i);
     }
+}
+
+
+
+void MainWindow::on_tableViewBtn_clicked()
+{
+    TableViewPage tableViewpage(nullptr, this->stadiumMaster);
+    tableViewpage.setModal(true);
+    tableViewpage.exec();
 }
 
