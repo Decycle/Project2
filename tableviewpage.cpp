@@ -8,7 +8,7 @@ TableViewPage::TableViewPage(QWidget *parent, StadiumMaster* stadiums) :
 {
     ui->setupUi(this);
 
-    this->ui->tableWidget->setRowCount(stadiums->stadiumCount);
+    this->ui->tableWidget->setRowCount(StadiumMaster::stadiumCount);
     this->ui->tableWidget->setColumnWidth(0, 200);
     this->ui->tableWidget->setColumnWidth(1, 100);
     this->ui->tableWidget->setColumnWidth(2, 200);
@@ -17,7 +17,7 @@ TableViewPage::TableViewPage(QWidget *parent, StadiumMaster* stadiums) :
     this->ui->tableWidget->setColumnWidth(5, 100);
     this->ui->tableWidget->setColumnWidth(6, 100);
 
-    for(int i = 0; i < stadiums->stadiumCount; i ++)
+    for(int i = 0; i < StadiumMaster::stadiumCount; i ++)
     {
         QTableWidgetItem *nameItem = new QTableWidgetItem(stadiums->stadiums[i]->name);
         QTableWidgetItem *capacityItem = new QTableWidgetItem(QString::number(stadiums->stadiums[i]->capacity));

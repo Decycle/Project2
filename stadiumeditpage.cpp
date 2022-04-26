@@ -70,27 +70,27 @@ void StadiumEditPage::on_saveBtn_clicked()
     {
         this->mainWindow->clearSelection();
 
-        for(int i = 0; i < 30; i ++)
+        for(int i = 0; i < StadiumMaster::stadiumCount; i ++)
         {
-            Stadium *stadium = this->mainWindow->getStadiums()[i];
+//            Stadium *stadium = this->mainWindow->getStadiums()[i];
 
-            if((this->ui->nameInput->text().isEmpty() ||
-                stadium->name == this->ui->nameInput->text()) &&
-                (this->ui->capacityInput->text().isEmpty() ||
-                stadium->capacity == this->ui->capacityInput->text().toInt()) &&
-                (this->ui->locationInput->text().isEmpty() ||
-                stadium->location == this->ui->locationInput->text()) &&
-                (this->ui->grassCheckbox->isChecked() == stadium->hasGrass ||
-                 this->ui->grassCheckbox->checkState() == Qt::PartiallyChecked) &&
-                (this->ui->teamInput->text().isEmpty() ||
-                stadium->team == this->ui->teamInput->text()) &&
-                (this->ui->openedInput->text().isEmpty() ||
-                stadium->opened == this->ui->openedInput->text().toInt()) &&
-                (this->ui->americanCheckbox->isChecked() == stadium->isAmerican ||
-                 this->ui->americanCheckbox->checkState() == Qt::PartiallyChecked))
-            {
-                this->mainWindow->selectStadium(i);
-            }
+//            if((this->ui->nameInput->text().isEmpty() ||
+//                stadium->name == this->ui->nameInput->text()) &&
+//                (this->ui->capacityInput->text().isEmpty() ||
+//                stadium->capacity == this->ui->capacityInput->text().toInt()) &&
+//                (this->ui->locationInput->text().isEmpty() ||
+//                stadium->location == this->ui->locationInput->text()) &&
+//                (this->ui->grassCheckbox->isChecked() == stadium->hasGrass ||
+//                 this->ui->grassCheckbox->checkState() == Qt::PartiallyChecked) &&
+//                (this->ui->teamInput->text().isEmpty() ||
+//                stadium->team == this->ui->teamInput->text()) &&
+//                (this->ui->openedInput->text().isEmpty() ||
+//                stadium->opened == this->ui->openedInput->text().toInt()) &&
+//                (this->ui->americanCheckbox->isChecked() == stadium->isAmerican ||
+//                 this->ui->americanCheckbox->checkState() == Qt::PartiallyChecked))
+//            {
+//                this->mainWindow->selectStadium(i);
+//            }
         }
     }
 

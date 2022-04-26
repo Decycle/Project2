@@ -4,8 +4,6 @@ StadiumMaster::StadiumMaster(bool *selectStadiumIndex)
 {
     this->selectStadiumIndex = selectStadiumIndex;
 
-    stadiumCount = 30;
-
     const QString names[30] = {
         "American Family Field",
         "Angel Stadium",
@@ -142,7 +140,7 @@ StadiumMaster::StadiumMaster(bool *selectStadiumIndex)
     stadiums = new Stadium*[100];
 
 
-    for(int i = 0; i < stadiumCount; i ++)
+    for(int i = 0; i < 30; i ++)
     {
         stadiums[i] = new Stadium(names[i], capacity[i], locations[i], isAmerican[i], hasGrass[i], teams[i], opened[i]);
         stadiumGraph.addVertex(names[i].toStdString());
@@ -211,4 +209,10 @@ StadiumMaster::StadiumMaster(bool *selectStadiumIndex)
     }
 
 //    qDebug() << QString::fromStdString(stadiumGraph.printGraph());
+}
+
+void StadiumMaster::addStadium()
+{
+    this->stadiums[StadiumMaster::stadiumCount] = new Stadium;
+    this->stadiumGraph.addVertex("");
 }

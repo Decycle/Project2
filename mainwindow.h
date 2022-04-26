@@ -34,11 +34,14 @@ private slots:
     void on_selectAllBtn_clicked();
     void on_tableViewBtn_clicked();
 
+    void on_newStadiumBtn_clicked();
+
+    void on_newPathBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     CanvasManager *canvas;
     StadiumMaster *stadiumMaster;
-    bool selectStadiumIndex[100] = {false};
     bool loggedIn;
 
 };

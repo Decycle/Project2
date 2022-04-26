@@ -1,7 +1,11 @@
 #include "canvasmanager.h"
+#include "stadiummaster.h"
 
 CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console, Stadium **stadiums, bool *selectStadiumIndex)
 {
+    this->console = console;
+    this->selectStadiumIndex = selectStadiumIndex;
+
     scene = new QGraphicsScene(graphicsView);
 
     graphicsView->setScene(scene);
@@ -11,7 +15,7 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
     QImage bgImg(":/ui/background.png");
     scene->addPixmap(QPixmap::fromImage(bgImg));
 
-    const int verticesList[30][2] = {
+    int verticesList[100][2] = {
         { 543, 183 },
         { 79, 325 },
         { 513, 276 },
@@ -43,6 +47,16 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
         { 548, 210 },
         { 753, 197 }
     };
+
+    vertexList = new int*[100];
+
+    for(int i = 0; i < 100; i ++)
+    {
+        vertexList[i] = new int[2];
+        vertexList[i][0] = verticesList[i][0];
+        vertexList[i][1] = verticesList[i][1];
+    }
+
     int edgesList[100][3] = {
         { 24, 17, 680 },
         { 17, 1, 340 },
@@ -156,7 +170,7 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
     vertices[29]->setAlternativeStadium(stadiums[4]);
 
 
-    lines = new Line*[54];
+    lines = new Line*[100];
 
     for(int i = 0; i < 54; i++) {
         Line *line = new Line(verticesList[edgesList[i][0]][0], verticesList[edgesList[i][0]][1],
@@ -180,7 +194,7 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console,
 
 CanvasManager::~CanvasManager()
 {
-    for(int i = 0; i < 54; i++)
+    for(int i = 0; i < CanvasManager::lineCount; i++)
     {
         delete lines[i];
     }
@@ -202,7 +216,7 @@ void CanvasManager::advance()
 
     float lineLengths = 0;
 
-    for(int i = 0; i < 54; i++)
+    for(int i = 0; i < CanvasManager::lineCount; i++)
     {
         if(selectedLines[i] >= 1)
         {
@@ -231,7 +245,7 @@ void CanvasManager::startAnimation(int* points, int pointCount)
 
         // qDebug() << point1 << " to " << point2;
 
-        for(int j = 0; j < 54; j ++)
+        for(int j = 0; j < CanvasManager::lineCount; j ++)
         {
             if(edgeList[j][0] == point1 && edgeList[j][1] == point2)
             {
@@ -247,18 +261,56 @@ void CanvasManager::startAnimation(int* points, int pointCount)
 
 void CanvasManager::clearCanvas()
 {
-    for(int i = 0; i < 30; i ++)
+    for(int i = 0; i < 10; i ++)
     {
         this->vertices[i]->setOpacity(0.01);
     }
 
-    for(int i = 0; i < 100; i ++)
+//    for(int i = 0; i < 100; i ++)
+//    {
+//        selectedLines[i] = 0;
+//    }
+
+//    for(int i = 0; i < CanvasManager::lineCount; i ++)
+//    {
+//        lines[i]->setDistance(0);
+//    }
+}
+
+ void CanvasManager::addVertex(int x, int y, Stadium* stadium)
+ {
+    int i = StadiumMaster::stadiumCount;
+
+    VertexItem *vertex = new VertexItem(x - 10, y - 10, 20, 20, this->console, i, selectStadiumIndex);
+    vertex->setBrush(QBrush(QColor(137, 221, 139)));
+    vertex->setPen(Qt::NoPen);
+    vertex->setZValue(3);
+
+    if(selectStadiumIndex[i])
     {
-        selectedLines[i] = 0;
+        vertex->setOpacity(1.0);
+    }
+    else
+    {
+        vertex->setOpacity(0.01);
     }
 
-    for(int i = 0; i < 54; i ++)
-    {
-        lines[i]->setDistance(0);
-    }
+    scene->addItem(vertex);
+    vertex->setStadium(stadium);
+    this->vertices[i] = vertex;
+
+    QGraphicsEllipseItem *circle = scene->addEllipse(x - 8, y - 8, 16, 16);
+    circle->setBrush(QBrush(Qt::white));
+    circle->setPen(Qt::NoPen);
+    circle->setZValue(2);
+
+    this->scene->update();
+ }
+
+void CanvasManager::addLine(int i, int j, int length)
+{
+    Line *line = new Line(vertexList[i][0], vertexList[i][1],
+                          vertexList[j][0], vertexList[j][1], console, length);
+    line->addToScene(scene);
+    lines[CanvasManager::lineCount] = line;
 }

@@ -11,9 +11,10 @@
 class StadiumMaster
 {
 public:
+    inline static int stadiumCount = 30;
     StadiumMaster(bool *selectStadiumIndex);
+    void addStadium();
     Stadium **stadiums;
-    int stadiumCount;
     bool *selectStadiumIndex;
 //private:
     Graph stadiumGraph;

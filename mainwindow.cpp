@@ -4,6 +4,7 @@
 #include "vertexItem.h"
 #include "loginpage.h"
 #include "stadiumeditpage.h"
+#include "appcontroller.h"
 
 #include <QGraphicsScene>
 #include <QDebug>
@@ -16,8 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->stadiumMaster = new StadiumMaster(this->selectStadiumIndex);
-    this->canvas = new CanvasManager(this->ui->graphicsView, this->ui->console, this->stadiumMaster->stadiums, this->selectStadiumIndex);
+    this->stadiumMaster = new StadiumMaster(AppController::SelectStadiumIndex);
+    this->canvas = new CanvasManager(this->ui->graphicsView, this->ui->console, this->stadiumMaster->stadiums, AppController::SelectStadiumIndex);
+    AppController::Initialize(this->ui->console);
     this->loggedIn = false;
 }
 
@@ -33,15 +35,15 @@ Stadium** MainWindow::getStadiums()
 
 void MainWindow::selectStadium(int i)
 {
-    this->selectStadiumIndex[i] = true;
+    AppController::SelectStadiumIndex[i] = true;
     this->canvas->vertices[i]->setOpacity(1.0);
 }
 
 void MainWindow::clearSelection()
 {
-    for(int i = 0; i < 30; i ++)
+    for(int i = 0; i < StadiumMaster::stadiumCount; i ++)
     {
-        this->selectStadiumIndex[i] = false;
+        AppController::SelectStadiumIndex[i] = false;
         this->canvas->vertices[i]->setOpacity(0.0);
     }
 }
@@ -60,7 +62,7 @@ void MainWindow::on_startPathBtn_clicked()
 
     for(int i = 0; i < 100; i ++)
     {
-        if(selectStadiumIndex[i])
+        if(AppController::SelectStadiumIndex[i])
         {
             if(pointA == -1)
                 pointA = i;
@@ -105,7 +107,7 @@ void MainWindow::on_startPathBtn_clicked()
 
 void MainWindow::on_randomStadiumBtn_clicked()
 {
-    int index = QRandomGenerator::global()->generate() % this->stadiumMaster->stadiumCount;
+    int index = QRandomGenerator::global()->generate() % StadiumMaster::stadiumCount;
     this->ui->console->setText(QString::fromStdString(this->stadiumMaster->stadiums[index]->str()));
 }
 
@@ -132,7 +134,7 @@ void MainWindow::on_clearAllBtn_clicked()
     this->canvas->clearCanvas();
     for(int i = 0; i < 100; i ++)
     {
-        this->selectStadiumIndex[i] = 0;
+        AppController::SelectStadiumIndex[i] = false;
     }
 
     this->ui->console->setText("");
@@ -145,7 +147,7 @@ void MainWindow::on_editStadiumBtn_clicked()
 
     for(int i = 0; i < 100; i ++)
     {
-        if(this->selectStadiumIndex[i])
+        if(AppController::SelectStadiumIndex[i])
         {
             stadium = i;
         }
@@ -167,7 +169,7 @@ void MainWindow::on_showSelectedStadiumsBtn_clicked()
 
     for(int i = 0; i < 100; i ++)
     {
-        if(this->selectStadiumIndex[i])
+        if(AppController::SelectStadiumIndex[i])
         {
             output += this->stadiumMaster->stadiums[i]->str() + '\n';
         }
@@ -187,7 +189,7 @@ void MainWindow::on_searchStadiumsBtn_clicked()
 
 void MainWindow::on_selectAllBtn_clicked()
 {
-    for(int i = 0; i < 30; i ++)
+    for(int i = 0; i < StadiumMaster::stadiumCount; i ++)
     {
         selectStadium(i);
     }
@@ -200,5 +202,46 @@ void MainWindow::on_tableViewBtn_clicked()
     TableViewPage tableViewpage(nullptr, this->stadiumMaster);
     tableViewpage.setModal(true);
     tableViewpage.exec();
+}
+
+
+void MainWindow::on_newStadiumBtn_clicked()
+{
+    StadiumMaster::stadiumCount ++;
+    this->stadiumMaster->addStadium();
+    this->canvas->addVertex(100, 100, this->stadiumMaster->stadiums[StadiumMaster::stadiumCount]);
+
+    StadiumEditPage stadiumEditPage(nullptr, this->stadiumMaster->stadiums[StadiumMaster::stadiumCount]);
+    stadiumEditPage.setModal(true);
+    stadiumEditPage.exec();
+}
+
+
+void MainWindow::on_newPathBtn_clicked()
+{
+    CanvasManager::lineCount ++;
+
+    int pointA = -1;
+    int pointB = -1;
+
+    for(int i = 0; i < 100; i ++)
+    {
+        if(AppController::SelectStadiumIndex[i])
+        {
+            if(pointA == -1)
+                pointA = i;
+            else
+                pointB = i;
+        }
+    }
+
+    if(pointA == -1 && pointB == -1)
+    {
+        this->ui->console->setText("Please select at least two vertices");
+        return;
+    }
+
+    this->canvas->addLine(pointA, pointB, 0);
+
 }
 
