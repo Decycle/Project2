@@ -23,6 +23,11 @@ public:
         this->console = console;
         this->index = index;
         this->selectStadiumIndex = selectStadiumIndex;
+
+        this->setAcceptDrops(true);
+//        this->setFlag(QGraphicsItem::ItemIsSelectable);
+        this->setFlag(QGraphicsItem::ItemIsMovable);
+//        this->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     }
 
     void setStadium(Stadium *stadium)
@@ -62,6 +67,12 @@ public:
             }
 
         }
+    }
+
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+    {
+        this->setPos(event->pos());
+        this->update();
     }
 
 private:

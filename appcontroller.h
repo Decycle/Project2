@@ -15,8 +15,9 @@ public:
     inline static int StadiumCount = 30;
     inline static int LineCount = 54;
 
-    static void Initialize(QTextBrowser* console);
+    inline static bool isAddingStadium = false;
     AppController();
+
 };
 
 #endif // APPCONTROLLER_H

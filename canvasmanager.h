@@ -11,19 +11,15 @@
 class CanvasManager: public QObject
 {
 public:
-    inline static int lineCount = 54;
-    CanvasManager(QGraphicsView *graphicsView, QTextBrowser *console, Stadium **stadiums, bool *selectStadiumIndex);
+    CanvasManager(QGraphicsView *graphicsView);
     ~CanvasManager();
     void startAnimation(int* points, int pointCount);
     void clearCanvas();
     void addVertex(int x, int y, Stadium *stadium);
-    void addLine(int i, int j, int length);
-    VertexItem **vertices;
+    int addLine(int i, int j);
 private slots:
     void advance();
 private:
-    QTextBrowser *console;
-    bool *selectStadiumIndex;
     int** edgeList;
     int** vertexList;
     int* selectedLines;

@@ -17,9 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->stadiumMaster = new StadiumMaster(AppController::SelectStadiumIndex);
-    this->canvas = new CanvasManager(this->ui->graphicsView, this->ui->console, this->stadiumMaster->stadiums, AppController::SelectStadiumIndex);
-    AppController::Initialize(this->ui->console);
+    AppController::Console = this->ui->console;
+    this->stadiumMaster = new StadiumMaster();
+    this->canvas = new CanvasManager(this->ui->graphicsView);
     this->loggedIn = false;
 }
 
@@ -28,23 +28,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-Stadium** MainWindow::getStadiums()
-{
-    return this->stadiumMaster->stadiums;
-}
-
 void MainWindow::selectStadium(int i)
 {
     AppController::SelectStadiumIndex[i] = true;
-    this->canvas->vertices[i]->setOpacity(1.0);
+    AppController::Vertices[i]->setOpacity(1.0);
 }
 
 void MainWindow::clearSelection()
 {
-    for(int i = 0; i < StadiumMaster::stadiumCount; i ++)
+    for(int i = 0; i < AppController::StadiumCount; i ++)
     {
         AppController::SelectStadiumIndex[i] = false;
-        this->canvas->vertices[i]->setOpacity(0.0);
+        AppController::Vertices[i]->setOpacity(0.0);
     }
 }
 
@@ -60,7 +55,7 @@ void MainWindow::on_startPathBtn_clicked()
     int pointA = -1;
     int pointB = -1;
 
-    for(int i = 0; i < 100; i ++)
+    for(int i = 0; i < AppController::StadiumCount; i ++)
     {
         if(AppController::SelectStadiumIndex[i])
         {
@@ -82,7 +77,7 @@ void MainWindow::on_startPathBtn_clicked()
 
     int p = pointB;
 
-    int points[100] = {p};
+    int points[1000] = {p};
     int pointsCount = 0;
 
     QString output = "";
@@ -91,7 +86,7 @@ void MainWindow::on_startPathBtn_clicked()
     while(p != -1)
     {
         pointsCount ++;
-        path += this->stadiumMaster->stadiums[p]->name + "-> \n";
+        path += AppController::Stadiums[p]->name + "-> \n";
         p = shortest_paths[p][1];
         points[pointsCount] = p;
     }
@@ -107,8 +102,8 @@ void MainWindow::on_startPathBtn_clicked()
 
 void MainWindow::on_randomStadiumBtn_clicked()
 {
-    int index = QRandomGenerator::global()->generate() % StadiumMaster::stadiumCount;
-    this->ui->console->setText(QString::fromStdString(this->stadiumMaster->stadiums[index]->str()));
+    int index = QRandomGenerator::global()->generate() % AppController::StadiumCount;
+    this->ui->console->setText(QString::fromStdString(AppController::Stadiums[index]->str()));
 }
 
 void MainWindow::on_loginBtn_clicked()
@@ -132,7 +127,7 @@ void MainWindow::on_loginBtn_clicked()
 void MainWindow::on_clearAllBtn_clicked()
 {
     this->canvas->clearCanvas();
-    for(int i = 0; i < 100; i ++)
+    for(int i = 0; i < AppController::StadiumCount; i ++)
     {
         AppController::SelectStadiumIndex[i] = false;
     }
@@ -145,11 +140,12 @@ void MainWindow::on_editStadiumBtn_clicked()
 {
     int stadium = -1;
 
-    for(int i = 0; i < 100; i ++)
+    for(int i = 0; i < 1000; i ++)
     {
         if(AppController::SelectStadiumIndex[i])
         {
             stadium = i;
+            qDebug() << i;
         }
     }
 
@@ -158,7 +154,7 @@ void MainWindow::on_editStadiumBtn_clicked()
         this->ui->console->setText("No vertex selected");
         return;
     }
-    StadiumEditPage stadiumEditPage(nullptr, this->stadiumMaster->stadiums[stadium]);
+    StadiumEditPage stadiumEditPage(nullptr, AppController::Stadiums[stadium]);
     stadiumEditPage.setModal(true);
     stadiumEditPage.exec();
 }
@@ -167,11 +163,11 @@ void MainWindow::on_showSelectedStadiumsBtn_clicked()
 {
     string output;
 
-    for(int i = 0; i < 100; i ++)
+    for(int i = 0; i < AppController::StadiumCount; i ++)
     {
         if(AppController::SelectStadiumIndex[i])
         {
-            output += this->stadiumMaster->stadiums[i]->str() + '\n';
+            output += AppController::Stadiums[i]->str() + '\n';
         }
     }
 
@@ -189,17 +185,16 @@ void MainWindow::on_searchStadiumsBtn_clicked()
 
 void MainWindow::on_selectAllBtn_clicked()
 {
-    for(int i = 0; i < StadiumMaster::stadiumCount; i ++)
+    for(int i = 0; i < AppController::StadiumCount; i ++)
     {
         selectStadium(i);
     }
 }
 
 
-
 void MainWindow::on_tableViewBtn_clicked()
 {
-    TableViewPage tableViewpage(nullptr, this->stadiumMaster);
+    TableViewPage tableViewpage(nullptr);
     tableViewpage.setModal(true);
     tableViewpage.exec();
 }
@@ -207,11 +202,11 @@ void MainWindow::on_tableViewBtn_clicked()
 
 void MainWindow::on_newStadiumBtn_clicked()
 {
-    StadiumMaster::stadiumCount ++;
+    AppController::StadiumCount ++;
     this->stadiumMaster->addStadium();
-    this->canvas->addVertex(100, 100, this->stadiumMaster->stadiums[StadiumMaster::stadiumCount]);
+    this->canvas->addVertex(100, 100, AppController::Stadiums[AppController::StadiumCount - 1]);
 
-    StadiumEditPage stadiumEditPage(nullptr, this->stadiumMaster->stadiums[StadiumMaster::stadiumCount]);
+    StadiumEditPage stadiumEditPage(nullptr, AppController::Stadiums[AppController::StadiumCount - 1]);
     stadiumEditPage.setModal(true);
     stadiumEditPage.exec();
 }
@@ -219,12 +214,12 @@ void MainWindow::on_newStadiumBtn_clicked()
 
 void MainWindow::on_newPathBtn_clicked()
 {
-    CanvasManager::lineCount ++;
+    AppController::LineCount ++;
 
     int pointA = -1;
     int pointB = -1;
 
-    for(int i = 0; i < 100; i ++)
+    for(int i = 0; i < AppController::StadiumCount; i ++)
     {
         if(AppController::SelectStadiumIndex[i])
         {
@@ -241,7 +236,7 @@ void MainWindow::on_newPathBtn_clicked()
         return;
     }
 
-    this->canvas->addLine(pointA, pointB, 0);
-
+    int length = this->canvas->addLine(pointA, pointB);
+    this->stadiumMaster->addPath(pointA, pointB, length);
 }
 

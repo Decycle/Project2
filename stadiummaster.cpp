@@ -1,9 +1,8 @@
 #include "stadiummaster.h"
+#include "appcontroller.h"
 
-StadiumMaster::StadiumMaster(bool *selectStadiumIndex)
+StadiumMaster::StadiumMaster()
 {
-    this->selectStadiumIndex = selectStadiumIndex;
-
     const QString names[30] = {
         "American Family Field",
         "Angel Stadium",
@@ -137,14 +136,15 @@ StadiumMaster::StadiumMaster(bool *selectStadiumIndex)
         false, true, true, false, false,
     };
 
-    stadiums = new Stadium*[100];
-
+    Stadium** stadiums = new Stadium*[1000];
 
     for(int i = 0; i < 30; i ++)
     {
         stadiums[i] = new Stadium(names[i], capacity[i], locations[i], isAmerican[i], hasGrass[i], teams[i], opened[i]);
         stadiumGraph.addVertex(names[i].toStdString());
     }
+
+    AppController::Stadiums = stadiums;
 
     const int edgesList[54][3] = {
         { 24, 17, 680 },
@@ -207,12 +207,15 @@ StadiumMaster::StadiumMaster(bool *selectStadiumIndex)
     {
         stadiumGraph.addUndirectedEdge(edgesList[i][0], edgesList[i][1], edgesList[i][2]);
     }
-
-//    qDebug() << QString::fromStdString(stadiumGraph.printGraph());
 }
 
 void StadiumMaster::addStadium()
 {
-    this->stadiums[StadiumMaster::stadiumCount] = new Stadium;
+    AppController::Stadiums[AppController::StadiumCount - 1] = new Stadium;
     this->stadiumGraph.addVertex("");
+}
+
+void StadiumMaster::addPath(int i, int j, int length)
+{
+    stadiumGraph.addUndirectedEdge(i, j, length);
 }

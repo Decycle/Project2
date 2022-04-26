@@ -1,4 +1,5 @@
 #include "line.h"
+#include "appcontroller.h"
 
 Line::Line()
 {
@@ -7,21 +8,21 @@ Line::Line()
     x2 = 0.;
     y2 = 0.;
 
-    redLine = new LineItem(x1, y1, x1, y1, QPen(Qt::red, 2.), nullptr, distance);
-    blackLine = new LineItem(x1, y1, x2, y2, QPen(Qt::black, 2.), nullptr, distance);
+    redLine = new LineItem(x1, y1, x1, y1, QPen(Qt::red, 2.), AppController::Console, distance);
+    blackLine = new LineItem(x1, y1, x2, y2, QPen(Qt::black, 2.), AppController::Console, distance);
     this->distance = 0;
 }
 
-Line::Line(float x1, float y1, float x2, float y2, QTextBrowser *console, float distance)
+Line::Line(float x1, float y1, float x2, float y2, float distance)
 {
     this->x1 = x1;
     this->y1 = y1;
     this->x2 = x2;
     this->y2 = y2;
 
-    redLine = new LineItem(x1, y1, x1, y1, QPen(Qt::red, 2.), console, distance);
+    redLine = new LineItem(x1, y1, x1, y1, QPen(Qt::red, 2.), AppController::Console, distance);
     redLine->setZValue(1);
-    blackLine = new LineItem(x1, y1, x2, y2, QPen(Qt::black, 2.), console, distance);
+    blackLine = new LineItem(x1, y1, x2, y2, QPen(Qt::black, 2.), AppController::Console, distance);
     this->distance = distance;
 }
 

@@ -12,7 +12,7 @@ class Line
 {
 public:
     Line();
-    Line(float x1, float y1, float x2, float y2, QTextBrowser *console, float distance);
+    Line(float x1, float y1, float x2, float y2, float distance);
     void addToScene(QGraphicsScene *scene);
     float length();
     void setDistance(float p);
@@ -24,7 +24,6 @@ private:
     float distance;
     LineItem *blackLine;
     LineItem *redLine;
-    QTextBrowser *console;
 
 };
 

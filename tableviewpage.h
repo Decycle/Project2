@@ -15,7 +15,7 @@ class TableViewPage : public QDialog
     Q_OBJECT
 
 public:
-    explicit TableViewPage(QWidget *parent = nullptr, StadiumMaster* stadiums = nullptr);
+    explicit TableViewPage(QWidget *parent = nullptr);
     ~TableViewPage();
 
 private slots:
