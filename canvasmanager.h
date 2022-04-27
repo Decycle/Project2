@@ -4,7 +4,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QTimer>
-#include "line.h"
+#include "lineitem.h"
 #include "stadium.h"
 #include "vertexItem.h"
 
@@ -25,7 +25,7 @@ private:
     int* selectedLines;
     QGraphicsScene *scene;
     QTimer *timer;
-    Line **lines;
+    LineItem **lines;
     int step;
 };
 

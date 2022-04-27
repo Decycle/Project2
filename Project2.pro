@@ -11,7 +11,6 @@ CONFIG += c++11
 SOURCES += \
     canvasmanager.cpp \
     graph.cpp \
-    line.cpp \
     loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -24,7 +23,6 @@ HEADERS += \
     appcontroller.h \
     canvasmanager.h \
     graph.h \
-    line.h \
     lineitem.h \
     loginpage.h \
     mainwindow.h \

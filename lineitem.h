@@ -1,6 +1,8 @@
 #ifndef LINEITEM_H
 #define LINEITEM_H
 
+#include "vertexItem.h"
+
 #include <QGraphicsLineItem>
 #include <QTextBrowser>
 #include <QDebug>
@@ -10,18 +12,22 @@
 class LineItem: public QGraphicsLineItem
 {
 public:
-    LineItem(qreal x1, qreal y1, qreal x2, qreal y2, QPen pen, QTextBrowser *console, float distance)
-        :QGraphicsLineItem(x1, y1, x2, y2)
+    LineItem(VertexItem* a, VertexItem* b, QTextBrowser *console, float distance)
+        :QGraphicsLineItem(a->posX + 11, a->posY + 11, b->posX + 11, b->posY + 11)
     {
         setAcceptHoverEvents(true);
-        this->pen = pen;
+        this->a = a;
+        this->b = b;
         this->console = console;
-        setPen(pen);
         this->distance = distance;
     }
 
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
     {
+        painter->setPen(QPen(Qt::black, width));
+        painter->drawLine(a->posX + 11, a->posY + 11, b->posX + 11, b->posY + 11);
+
+//        QGraphicsLineItem::paint(painter, option, widget);
 //        if(selectStadiumIndex[index])
 //        {
 //            QGraphicsEllipseItem::paint(painter, option, widget);
@@ -32,13 +38,13 @@ public:
 
     void hoverEnterEvent(QGraphicsSceneHoverEvent*)
     {
-        pen.setWidth(3);
-        setPen(pen);
+        width = 3;
+        this->update();
     }
     void hoverLeaveEvent(QGraphicsSceneHoverEvent*)
     {
-        pen.setWidth(2);
-        setPen(pen);
+        width = 2;
+        this->update();
     }
 
     void mousePressEvent(QGraphicsSceneMouseEvent*)
@@ -48,7 +54,9 @@ public:
 
 private:
     QTextBrowser *console;
-    QPen pen;
+    VertexItem *a;
+    VertexItem *b;
+    int width = 2;
     float distance;
 };
 

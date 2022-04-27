@@ -2,7 +2,6 @@
 #define STADIUMMASTER_H
 
 #include "graph.h"
-#include "line.h"
 #include "stadium.h"
 #include "vertexItem.h"
 

@@ -3,7 +3,6 @@
 
 #include "stadium.h"
 #include "vertexItem.h"
-#include "line.h"
 
 class AppController
 {

@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "line.h"
 #include "stadium.h"
 #include "canvasmanager.h"
 #include "stadiummaster.h"

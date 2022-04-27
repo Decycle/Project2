@@ -135,11 +135,6 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
         vertex->setStadium(AppController::Stadiums[i]);
         vertices[i] = vertex;
 
-//        QGraphicsEllipseItem *circle = scene->addEllipse(verticesList[i][0] - 8, verticesList[i][1] - 8, 16, 16);
-//        circle->setBrush(QBrush(Qt::white));
-//        circle->setPen(Qt::NoPen);
-//        circle->setZValue(2);
-
 //        QGraphicsTextItem *name = scene->addText(stadiums[i]->name);
 //        name->setPos(verticesList[i][0], verticesList[i][1]);
 //        name->setDefaultTextColor(Qt::black);
@@ -159,12 +154,15 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
 
     AppController::Vertices = vertices;
 
-    lines = new Line*[1000];
+    lines = new LineItem*[1000];
 
     for(int i = 0; i < 54; i++) {
-        Line *line = new Line(verticesList[edgesList[i][0]][0], verticesList[edgesList[i][0]][1],
-                              verticesList[edgesList[i][1]][0], verticesList[edgesList[i][1]][1], edgesList[i][2]);
-        line->addToScene(scene);
+
+        VertexItem *a = AppController::Vertices[edgesList[i][0]];
+        VertexItem *b = AppController::Vertices[edgesList[i][1]];
+
+        LineItem *line = new LineItem(a, b, AppController::Console, edgesList[i][2]);
+        scene->addItem(line);
         lines[i] = line;
     }
 
@@ -204,14 +202,14 @@ void CanvasManager::advance()
 
     float lineLengths = 0;
 
-    for(int i = 0; i < AppController::LineCount; i++)
-    {
-        if(selectedLines[i] >= 1)
-        {
-            lines[i]->setDistance(steps - lineLengths);
-            lineLengths += lines[i]->length();
-        }
-    }
+//    for(int i = 0; i < AppController::LineCount; i++)
+//    {
+//        if(selectedLines[i] >= 1)
+//        {
+//            lines[i]->setDistance(steps - lineLengths);
+//            lineLengths += lines[i]->length();
+//        }
+//    }
 
     step += 1;
 }
@@ -254,7 +252,7 @@ void CanvasManager::clearCanvas()
 
     for(int i = 0; i < AppController::LineCount; i ++)
     {
-        lines[i]->setDistance(0);
+//        lines[i]->setDistance(0);
     }
 }
 
@@ -292,8 +290,8 @@ int CanvasManager::addLine(int i, int j)
 
     int length = sqrt(x * x + y * y) * 3.21698;
 
-    Line *line = new Line(ix, iy, jx, jy, length);
-    line->addToScene(scene);
+    LineItem *line = new LineItem(AppController::Vertices[i], AppController::Vertices[j], AppController::Console, length);
+    scene->addItem(line);
     lines[AppController::LineCount - 1] = line;
 
     int* newEdge = new int[3] {j, i, length};
