@@ -125,29 +125,20 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
     VertexItem** vertices = new VertexItem*[1000];
     for(int i = 0; i < 30; i ++)
     {
-        VertexItem *vertex = new VertexItem(verticesList[i][0] - 10,
-                verticesList[i][1] - 10, 20, 20, AppController::Console, i, AppController::SelectStadiumIndex);
-        vertex->setBrush(QBrush(QColor(137, 221, 139)));
+        VertexItem *vertex = new VertexItem(verticesList[i][0] - 11,
+                verticesList[i][1] - 11, 22, 22, AppController::Console, i, AppController::SelectStadiumIndex);
+        vertex->setBrush(QBrush(QColor(245, 59, 59)));
         vertex->setPen(Qt::NoPen);
         vertex->setZValue(3);
-
-        if(AppController::SelectStadiumIndex[i])
-        {
-            vertex->setOpacity(1.0);
-        }
-        else
-        {
-            vertex->setOpacity(0.01);
-        }
 
         scene->addItem(vertex);
         vertex->setStadium(AppController::Stadiums[i]);
         vertices[i] = vertex;
 
-        QGraphicsEllipseItem *circle = scene->addEllipse(verticesList[i][0] - 8, verticesList[i][1] - 8, 16, 16);
-        circle->setBrush(QBrush(Qt::white));
-        circle->setPen(Qt::NoPen);
-        circle->setZValue(2);
+//        QGraphicsEllipseItem *circle = scene->addEllipse(verticesList[i][0] - 8, verticesList[i][1] - 8, 16, 16);
+//        circle->setBrush(QBrush(Qt::white));
+//        circle->setPen(Qt::NoPen);
+//        circle->setZValue(2);
 
 //        QGraphicsTextItem *name = scene->addText(stadiums[i]->name);
 //        name->setPos(verticesList[i][0], verticesList[i][1]);
@@ -256,11 +247,6 @@ void CanvasManager::startAnimation(int* points, int pointCount)
 
 void CanvasManager::clearCanvas()
 {
-    for(int i = 0; i < AppController::StadiumCount; i ++)
-    {
-        AppController::Vertices[i]->setOpacity(0.01);
-    }
-
     for(int i = 0; i < 1000; i ++)
     {
         selectedLines[i] = 0;
@@ -276,28 +262,14 @@ void CanvasManager::clearCanvas()
  {
     int lastStadium = AppController::StadiumCount - 1;
 
-    VertexItem *vertex = new VertexItem(x - 10, y - 10, 20, 20, AppController::Console, lastStadium, AppController::SelectStadiumIndex);
-    vertex->setBrush(QBrush(QColor(137, 221, 139)));
+    VertexItem *vertex = new VertexItem(x - 11, y - 11, 22, 22, AppController::Console, lastStadium, AppController::SelectStadiumIndex);
+    vertex->setBrush(QBrush(QColor(245, 59, 59)));
     vertex->setPen(Qt::NoPen);
     vertex->setZValue(3);
-
-    if(AppController::SelectStadiumIndex[lastStadium])
-    {
-        vertex->setOpacity(1.0);
-    }
-    else
-    {
-        vertex->setOpacity(0.01);
-    }
 
     scene->addItem(vertex);
     vertex->setStadium(stadium);
     AppController::Vertices[lastStadium] = vertex;
-
-    QGraphicsEllipseItem *circle = scene->addEllipse(x - 8, y - 8, 16, 16);
-    circle->setBrush(QBrush(Qt::white));
-    circle->setPen(Qt::NoPen);
-    circle->setZValue(2);
 
     int* newVertice = new int[2]{x, y};
 
@@ -308,13 +280,19 @@ void CanvasManager::clearCanvas()
 
 int CanvasManager::addLine(int i, int j)
 {
-    int x = vertexList[j][0] - vertexList[i][0];
-    int y = vertexList[j][1] - vertexList[i][1];
+    int ix = AppController::Vertices[i]->posX + 11;
+    int iy = AppController::Vertices[i]->posY + 11;
+    int jx = AppController::Vertices[j]->posX + 11;
+    int jy = AppController::Vertices[j]->posY + 11;
+
+//    qDebug() << pointA << pointB;
+
+    double x = ix - jx;
+    double y = iy - jy;
 
     int length = sqrt(x * x + y * y) * 3.21698;
 
-    Line *line = new Line(vertexList[i][0], vertexList[i][1],
-                          vertexList[j][0], vertexList[j][1], length);
+    Line *line = new Line(ix, iy, jx, jy, length);
     line->addToScene(scene);
     lines[AppController::LineCount - 1] = line;
 

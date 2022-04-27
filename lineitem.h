@@ -5,6 +5,7 @@
 #include <QTextBrowser>
 #include <QDebug>
 #include <QPen>
+#include <QPainter>
 
 class LineItem: public QGraphicsLineItem
 {
@@ -17,6 +18,16 @@ public:
         this->console = console;
         setPen(pen);
         this->distance = distance;
+    }
+
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+    {
+//        if(selectStadiumIndex[index])
+//        {
+//            QGraphicsEllipseItem::paint(painter, option, widget);
+//        }
+//        painter->setBrush(Qt::white);
+//        painter->drawEllipse(x + 3, y + 3, 16, 16);
     }
 
     void hoverEnterEvent(QGraphicsSceneHoverEvent*)

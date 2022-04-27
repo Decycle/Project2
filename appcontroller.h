@@ -16,6 +16,12 @@ public:
     inline static int LineCount = 54;
 
     inline static bool isAddingStadium = false;
+
+    static void SelectStadium(int i, bool value = true)
+    {
+        AppController::SelectStadiumIndex[i] = value;
+        AppController::Vertices[i]->update();
+    }
     AppController();
 
 };

@@ -30,7 +30,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::selectStadium(int i)
 {
-    AppController::SelectStadiumIndex[i] = true;
+    AppController::SelectStadium(i);
     AppController::Vertices[i]->setOpacity(1.0);
 }
 
@@ -38,7 +38,7 @@ void MainWindow::clearSelection()
 {
     for(int i = 0; i < AppController::StadiumCount; i ++)
     {
-        AppController::SelectStadiumIndex[i] = false;
+        AppController::SelectStadium(i, false);
         AppController::Vertices[i]->setOpacity(0.0);
     }
 }
@@ -91,6 +91,12 @@ void MainWindow::on_startPathBtn_clicked()
         points[pointsCount] = p;
     }
 
+    if(shortest_paths[pointB][0] > 100000)
+    {
+        this->ui->console->setText("Path Not Found");
+        return;
+    }
+
     output += "Total Distance Travelled: " + QString::number(shortest_paths[pointB][0]) + '\n';
     output += "Total Stadiums Visited: " + QString::number(pointsCount) + '\n';
     output += "Path: \n" + path.chopped(4);
@@ -129,7 +135,8 @@ void MainWindow::on_clearAllBtn_clicked()
     this->canvas->clearCanvas();
     for(int i = 0; i < AppController::StadiumCount; i ++)
     {
-        AppController::SelectStadiumIndex[i] = false;
+        AppController::SelectStadium(i, false);
+        AppController::Vertices[i]->update();
     }
 
     this->ui->console->setText("");
