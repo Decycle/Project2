@@ -39,7 +39,6 @@ private:
     Ui::MainWindow *ui;
     CanvasManager *canvas;
     StadiumMaster *stadiumMaster;
-    bool loggedIn;
 
 };
 #endif // MAINWINDOW_H

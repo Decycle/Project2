@@ -168,7 +168,7 @@ VIEW</string>
    </widget>
    <widget class="QPushButton" name="newStadiumBtn">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -185,7 +185,7 @@ STADIUM</string>
    </widget>
    <widget class="QPushButton" name="newPathBtn">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>

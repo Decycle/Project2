@@ -126,7 +126,7 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
     for(int i = 0; i < 30; i ++)
     {
         VertexItem *vertex = new VertexItem(verticesList[i][0] - 11,
-                verticesList[i][1] - 11, 22, 22, AppController::Console, i, AppController::SelectStadiumIndex);
+                verticesList[i][1] - 11, 22, 22, i);
         vertex->setBrush(QBrush(QColor(245, 59, 59)));
         vertex->setPen(Qt::NoPen);
         vertex->setZValue(3);
@@ -154,16 +154,14 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
 
     AppController::Vertices = vertices;
 
-    lines = new LineItem*[1000];
-
     for(int i = 0; i < 54; i++) {
 
         VertexItem *a = AppController::Vertices[edgesList[i][0]];
         VertexItem *b = AppController::Vertices[edgesList[i][1]];
 
-        LineItem *line = new LineItem(a, b, AppController::Console, edgesList[i][2]);
+        LineItem *line = new LineItem(a, b, edgesList[i][2]);
         scene->addItem(line);
-        lines[i] = line;
+        AppController::Lines[i] = line;
     }
 
     selectedLines = new int[1000];
@@ -180,15 +178,10 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
 
 CanvasManager::~CanvasManager()
 {
-    for(int i = 0; i < AppController::LineCount; i++)
-    {
-        delete lines[i];
-    }
     for(int i = 0; i < 1000; i ++)
     {
         delete edgeList[i];
     }
-    delete[] lines;
     delete[] selectedLines;
     delete[] edgeList;
     delete timer;
@@ -202,14 +195,15 @@ void CanvasManager::advance()
 
     float lineLengths = 0;
 
-//    for(int i = 0; i < AppController::LineCount; i++)
-//    {
-//        if(selectedLines[i] >= 1)
-//        {
-//            lines[i]->setDistance(steps - lineLengths);
-//            lineLengths += lines[i]->length();
-//        }
-//    }
+    for(int i = 0; i < AppController::LineCount; i++)
+    {
+        if(selectedLines[i] >= 1)
+        {
+            AppController::Lines[i]->setDistance(steps - lineLengths);
+            AppController::Lines[i]->update();
+            lineLengths += AppController::Lines[i]->length();
+        }
+    }
 
     step += 1;
 }
@@ -252,7 +246,8 @@ void CanvasManager::clearCanvas()
 
     for(int i = 0; i < AppController::LineCount; i ++)
     {
-//        lines[i]->setDistance(0);
+        AppController::Lines[i]->setDistance(0);
+        AppController::Lines[i]->update();
     }
 }
 
@@ -260,7 +255,7 @@ void CanvasManager::clearCanvas()
  {
     int lastStadium = AppController::StadiumCount - 1;
 
-    VertexItem *vertex = new VertexItem(x - 11, y - 11, 22, 22, AppController::Console, lastStadium, AppController::SelectStadiumIndex);
+    VertexItem *vertex = new VertexItem(x - 11, y - 11, 22, 22, lastStadium, true);
     vertex->setBrush(QBrush(QColor(245, 59, 59)));
     vertex->setPen(Qt::NoPen);
     vertex->setZValue(3);
@@ -290,9 +285,9 @@ int CanvasManager::addLine(int i, int j)
 
     int length = sqrt(x * x + y * y) * 3.21698;
 
-    LineItem *line = new LineItem(AppController::Vertices[i], AppController::Vertices[j], AppController::Console, length);
+    LineItem *line = new LineItem(AppController::Vertices[i], AppController::Vertices[j], length);
     scene->addItem(line);
-    lines[AppController::LineCount - 1] = line;
+    AppController::Lines[AppController::LineCount - 1] = line;
 
     int* newEdge = new int[3] {j, i, length};
     this->edgeList[AppController::LineCount - 1] = newEdge;

@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     AppController::Console = this->ui->console;
     this->stadiumMaster = new StadiumMaster();
     this->canvas = new CanvasManager(this->ui->graphicsView);
-    this->loggedIn = false;
 }
 
 MainWindow::~MainWindow()
@@ -45,8 +44,10 @@ void MainWindow::clearSelection()
 
 void MainWindow::login()
 {
-    this->loggedIn = true;
+    AppController::IsLoggedIn = true;
     this->ui->editStadiumBtn->setEnabled(true);
+    this->ui->newStadiumBtn->setEnabled(true);
+    this->ui->newPathBtn->setEnabled(true);
     this->ui->loginBtn->setText("LOGOUT");
 }
 
@@ -114,17 +115,19 @@ void MainWindow::on_randomStadiumBtn_clicked()
 
 void MainWindow::on_loginBtn_clicked()
 {
-    if(!this->loggedIn)
+    if(!AppController::IsLoggedIn)
     {
         LoginPage loginPage(nullptr, this);
         loginPage.setModal(true);
         loginPage.exec();
     }
 
-    else if(this->loggedIn)
+    else if(AppController::IsLoggedIn)
     {
-        this->loggedIn = false;
+        AppController::IsLoggedIn = false;
         this->ui->editStadiumBtn->setEnabled(false);
+        this->ui->newStadiumBtn->setEnabled(false);
+        this->ui->newPathBtn->setEnabled(false);
         this->ui->loginBtn->setText("LOGIN");
     }
 }
@@ -152,7 +155,6 @@ void MainWindow::on_editStadiumBtn_clicked()
         if(AppController::SelectStadiumIndex[i])
         {
             stadium = i;
-            qDebug() << i;
         }
     }
 

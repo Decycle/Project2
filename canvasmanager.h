@@ -4,9 +4,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QTimer>
-#include "lineitem.h"
 #include "stadium.h"
 #include "vertexItem.h"
+#include "lineitem.h"
 
 class CanvasManager: public QObject
 {
@@ -25,7 +25,6 @@ private:
     int* selectedLines;
     QGraphicsScene *scene;
     QTimer *timer;
-    LineItem **lines;
     int step;
 };
 

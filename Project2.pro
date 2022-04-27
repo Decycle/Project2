@@ -11,13 +11,15 @@ CONFIG += c++11
 SOURCES += \
     canvasmanager.cpp \
     graph.cpp \
+    lineItem.cpp \
     loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
     stadium.cpp \
     stadiumeditpage.cpp \
     stadiummaster.cpp \
-    tableviewpage.cpp
+    tableviewpage.cpp \
+    vertexItem.cpp
 
 HEADERS += \
     appcontroller.h \
