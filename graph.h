@@ -1,13 +1,9 @@
-/*************************************************
-* AUTHOR        : Zimin Yang
-* ASSIGNMENT 7  : Dijkstra's Algorithm and MST
-* CLASS         : CS 008
-* DUE DATE      : 3/16/22
-*************************************************/
 #ifndef GRAPH_H
 #define GRAPH_H
 #include <iostream>
 #include <sstream>
+
+#include "appcontroller.h"
 
 using namespace std;
 
@@ -53,6 +49,20 @@ public:
     // to all other vertices using Dijkstra's algorithm
     // using name
     int** findShortestPaths(string);
+
+    int findShortestDistance(int, int);
+    void findShortestPath(int, int, int*, int*);
+
+    void findShortestTripIter(int point, bool* travelled,
+                              int* points, int totalPoint,
+                              int length, int* minLength,
+                              int* minPath, int* currentPath,
+                              int iter);
+
+    //find the shortest path from the source vertex
+    //to all other vertices which has travelled some
+    //points
+    int* findShortestTrip(int, int*, int, int*, int*, int*);
 
     //find the minimum spanning tree using Prim's algorithm
     // using id

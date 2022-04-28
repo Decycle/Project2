@@ -18,8 +18,15 @@ TableViewPage::TableViewPage(QWidget *parent) :
     this->ui->tableWidget->setColumnWidth(5, 100);
     this->ui->tableWidget->setColumnWidth(6, 100);
 
+    int count = 0;
+
     for(int i = 0; i < AppController::StadiumCount; i ++)
     {
+        if(!(*AppController::SelectStadiumIndex)[i])
+        {
+            continue;
+        }
+
         QTableWidgetItem *nameItem = new QTableWidgetItem(AppController::Stadiums[i]->name);
         QTableWidgetItem *capacityItem = new QTableWidgetItem(QString::number(AppController::Stadiums[i]->capacity));
         QTableWidgetItem *locationItem = new QTableWidgetItem(AppController::Stadiums[i]->location);
@@ -27,13 +34,14 @@ TableViewPage::TableViewPage(QWidget *parent) :
         QTableWidgetItem *teamItem = new QTableWidgetItem(AppController::Stadiums[i]->team);
         QTableWidgetItem *openedItem = new QTableWidgetItem(QString::number(AppController::Stadiums[i]->opened));
         QTableWidgetItem *AmericaItem = new QTableWidgetItem(AppController::Stadiums[i]->isAmerican ? "American" : "National");
-        this->ui->tableWidget->setItem(i, 0, nameItem);
-        this->ui->tableWidget->setItem(i, 1, capacityItem);
-        this->ui->tableWidget->setItem(i, 2, locationItem);
-        this->ui->tableWidget->setItem(i, 3, grassItem);
-        this->ui->tableWidget->setItem(i, 4, teamItem);
-        this->ui->tableWidget->setItem(i, 5, openedItem);
-        this->ui->tableWidget->setItem(i, 6, AmericaItem);
+        this->ui->tableWidget->setItem(count, 0, nameItem);
+        this->ui->tableWidget->setItem(count, 1, capacityItem);
+        this->ui->tableWidget->setItem(count, 2, locationItem);
+        this->ui->tableWidget->setItem(count, 3, grassItem);
+        this->ui->tableWidget->setItem(count, 4, teamItem);
+        this->ui->tableWidget->setItem(count, 5, openedItem);
+        this->ui->tableWidget->setItem(count, 6, AmericaItem);
+        count++;
     }
 
     this->ui->tableWidget->setSortingEnabled(true);

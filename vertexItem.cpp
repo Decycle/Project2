@@ -26,13 +26,28 @@ void VertexItem::setAlternativeStadium(Stadium *stadium)
     this->alternativeStadium = stadium;
 }
 
-void VertexItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void VertexItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    if(AppController::SelectStadiumIndex[index])
+    if(AppController::ShowName)
     {
-        QGraphicsEllipseItem::paint(painter, option, widget);
+        painter->setPen(Qt::black);
+        painter->drawText(x + 3, y + 3, AppController::Stadiums[index]->name);
     }
     painter->setPen(Qt::NoPen);
+
+    if((*AppController::SelectStadiumIndex)[index])
+    {
+        if(AppController::StartingStadium == index)
+        {
+            painter->setBrush(QBrush(QColor(65, 172, 176)));
+        }
+        else
+        {
+            painter->setBrush(QBrush(QColor(245, 59, 59)));
+        }
+        painter->drawEllipse(x, y, 22, 22);
+    }
+
 
     if(isMovable)
     {
@@ -60,17 +75,38 @@ void VertexItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
     else if (event->buttons() & Qt::RightButton)
     {
-        if(!AppController::SelectStadiumIndex[index])
+        if(!(*AppController::SelectStadiumIndex)[index])
         {
-            AppController::SelectStadiumIndex[index] = true;
+            (*AppController::SelectStadiumIndex)[index] = true;
             this->update();
         }
         else
         {
-            AppController::SelectStadiumIndex[index] = false;
+            if(AppController::StartingStadium == index)
+            {
+                AppController::Vertices[AppController::StartingStadium]->update();
+                AppController::StartingStadium = -1;
+            }
+            (*AppController::SelectStadiumIndex)[index] = false;
             this->update();
         }
 
+    }
+    else if(event->buttons() & Qt::MiddleButton)
+    {
+        if(AppController::StartingStadium == index)
+        {
+            AppController::Vertices[AppController::StartingStadium]->update();
+            AppController::StartingStadium = -1;
+            (*AppController::SelectStadiumIndex)[index] = false;
+            this->update();
+        }
+        else
+        {
+            AppController::StartingStadium = index;
+            (*AppController::SelectStadiumIndex)[index] = true;
+            this->update();
+        }
     }
 }
 
@@ -82,11 +118,7 @@ void VertexItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 
     this->setPos(event->scenePos().x() - x - 11, event->scenePos().y() - y - 11);
-    this->posX = event->scenePos().x() - 5;
-    this->posY = event->scenePos().y() - 5;
-    this->update();
-    for(int i = 0; i < AppController::LineCount; i ++)
-    {
-        AppController::Lines[i]->update();
-    }
+    this->posX = event->scenePos().x() - 11;
+    this->posY = event->scenePos().y() - 11;
+    AppController::GraphicsView->update();
 }

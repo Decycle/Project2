@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     AppController::Console = this->ui->console;
+    AppController::GraphicsView = this->ui->graphicsView;
     this->stadiumMaster = new StadiumMaster();
     this->canvas = new CanvasManager(this->ui->graphicsView);
 }
@@ -30,7 +31,6 @@ MainWindow::~MainWindow()
 void MainWindow::selectStadium(int i)
 {
     AppController::SelectStadium(i);
-    AppController::Vertices[i]->setOpacity(1.0);
 }
 
 void MainWindow::clearSelection()
@@ -38,7 +38,6 @@ void MainWindow::clearSelection()
     for(int i = 0; i < AppController::StadiumCount; i ++)
     {
         AppController::SelectStadium(i, false);
-        AppController::Vertices[i]->setOpacity(0.0);
     }
 }
 
@@ -58,7 +57,7 @@ void MainWindow::on_startPathBtn_clicked()
 
     for(int i = 0; i < AppController::StadiumCount; i ++)
     {
-        if(AppController::SelectStadiumIndex[i])
+        if((*AppController::SelectStadiumIndex)[i])
         {
             if(pointA == -1)
                 pointA = i;
@@ -152,7 +151,7 @@ void MainWindow::on_editStadiumBtn_clicked()
 
     for(int i = 0; i < 1000; i ++)
     {
-        if(AppController::SelectStadiumIndex[i])
+        if((*AppController::SelectStadiumIndex)[i])
         {
             stadium = i;
         }
@@ -174,7 +173,7 @@ void MainWindow::on_showSelectedStadiumsBtn_clicked()
 
     for(int i = 0; i < AppController::StadiumCount; i ++)
     {
-        if(AppController::SelectStadiumIndex[i])
+        if((*AppController::SelectStadiumIndex)[i])
         {
             output += AppController::Stadiums[i]->str() + '\n';
         }
@@ -230,7 +229,7 @@ void MainWindow::on_newPathBtn_clicked()
 
     for(int i = 0; i < AppController::StadiumCount; i ++)
     {
-        if(AppController::SelectStadiumIndex[i])
+        if((*AppController::SelectStadiumIndex)[i])
         {
             if(pointA == -1)
                 pointA = i;
@@ -239,7 +238,7 @@ void MainWindow::on_newPathBtn_clicked()
         }
     }
 
-    if(pointA == -1 && pointB == -1)
+    if(pointA == -1 || pointB == -1)
     {
         this->ui->console->setText("Please select at least two vertices");
         return;
@@ -247,5 +246,92 @@ void MainWindow::on_newPathBtn_clicked()
 
     int length = this->canvas->addLine(pointA, pointB);
     this->stadiumMaster->addPath(pointA, pointB, length);
+}
+
+
+void MainWindow::on_startTripBtn_clicked()
+{
+    int startPoint = AppController::StartingStadium;
+    if(startPoint == -1)
+    {
+        AppController::Console->setText("Please select a starting point");
+        return;
+    }
+
+    int* chosenPoints;
+    int chosenPointsLength = 0;
+
+    for(int i = 0; i < AppController::StadiumCount; i ++)
+    {
+        if((*AppController::SelectStadiumIndex)[i] && AppController::StartingStadium != i)
+        {
+            chosenPointsLength ++;
+        }
+    }
+    if(chosenPointsLength < 1)
+    {
+        AppController::Console->setText("Please select at least one stadium to visit along the way");
+        return;
+    }
+
+    chosenPoints = new int[chosenPointsLength];
+    int index = 0;
+
+    for(int i = 0; i < AppController::StadiumCount; i ++)
+    {
+        if((*AppController::SelectStadiumIndex)[i] && AppController::StartingStadium != i)
+        {
+            chosenPoints[index] = i;
+            index ++;
+        }
+    }
+    int* shortestPath = new int[1000];
+    int* shortestPathCount = new int;
+    int* shortestDistance = new int;
+    *shortestPathCount = 0;
+    *shortestDistance = 0;
+    this->stadiumMaster->stadiumGraph.findShortestTrip(startPoint,
+                                                       chosenPoints,
+                                                       chosenPointsLength,
+                                                       shortestPath,
+                                                       shortestPathCount,
+                                                       shortestDistance);
+
+    if(*shortestDistance > 10000)
+    {
+        AppController::Console->setText("Path Not Found");
+        return;
+    }
+
+    QString path;
+
+    for(int i = 0; i < *shortestPathCount; i ++)
+    {
+        path += AppController::Stadiums[shortestPath[i]]->name + "-> \n";
+    }
+
+    QString output;
+    output += "Total Distance Travelled: " + QString::number(*shortestDistance) + '\n';
+    output += "Total Stadiums Visited: " + QString::number(*shortestPathCount) + '\n';
+    output += "Path: \n" + path.chopped(4);
+
+    AppController::Console->setText(output);
+
+    this->canvas->startAnimation(shortestPath, *shortestPathCount);
+
+    delete[] shortestPath;
+    delete shortestPathCount;
+    delete[] chosenPoints;
+    delete shortestDistance;
+
+}
+
+void MainWindow::on_showNameBtn_clicked()
+{
+    AppController::ShowName = !AppController::ShowName;
+    for(int i = 0; i < AppController::StadiumCount; i ++)
+    {
+        AppController::GraphicsView->update();
+    }
 }
 

@@ -35,6 +35,10 @@ private slots:
     void on_newStadiumBtn_clicked();
     void on_newPathBtn_clicked();
 
+    void on_startTripBtn_clicked();
+
+    void on_showNameBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     CanvasManager *canvas;

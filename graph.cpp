@@ -1,10 +1,5 @@
-/*************************************************
-* AUTHOR        : Zimin Yang
-* ASSIGNMENT 7  : Dijkstra's Algorithm and MST
-* CLASS         : CS 008
-* DUE DATE      : 3/16/22
-*************************************************/
 #include "graph.h"
+#include "appcontroller.h"
 #include <iostream>
 #include <iomanip>
 
@@ -33,7 +28,11 @@ Graph::Graph()
     adjMatrix = new int*[CAPACITY];
     for (int i = 0; i < CAPACITY; i++)
     {
-        adjMatrix[i] = new int[CAPACITY] {0};
+        adjMatrix[i] = new int[CAPACITY];
+        for(int j = 0; j < CAPACITY; j++)
+        {
+            adjMatrix[i][j] = -1;
+        }
     }
     numVertices = 0;
     numEdges = 0;
@@ -175,7 +174,7 @@ int** Graph::findShortestPaths(int start)
 
         for(int i = 0; i < numVertices; i++)
         {
-            if(!visited[i] && adjMatrix[node][i] && distance[node] != INT32_MAX
+            if(!visited[i] && adjMatrix[node][i] != -1 && distance[node] != INT32_MAX
             && distance[node] + adjMatrix[node][i] < distance[i])
             {
                 distance[i] = distance[node] + adjMatrix[node][i];
@@ -221,6 +220,198 @@ int** Graph::findShortestPaths(int start)
     //  }
 
     return output;
+}
+
+int Graph::findShortestDistance(int point1, int point2)
+{
+    bool visited[numVertices];
+    int distance[numVertices];
+    int parent[numVertices];
+
+    for (int i = 0; i < numVertices; i++)
+    {
+        visited[i] = false;
+        distance[i] = INT32_MAX;
+        parent[i] = -1;
+    }
+
+    distance[point1] = 0;
+
+    for(int count = 0; count < numVertices; count++)
+    {
+        int min = INT32_MAX;
+        int min_index = 0;
+
+        for (int v = 0; v < numVertices; v++)
+            if (!visited[v] && distance[v] <= min)
+            {
+                min = distance[v];
+                min_index = v;
+            }
+
+        int node = min_index;
+
+
+        for(int i = 0; i < numVertices; i++)
+        {
+            if(!visited[i] && adjMatrix[node][i] != -1 && distance[node] != INT32_MAX
+            && distance[node] + adjMatrix[node][i] < distance[i])
+            {
+                distance[i] = distance[node] + adjMatrix[node][i];
+                parent[i] = node;
+            }
+        }
+        visited[node] = 1;
+    }
+    return distance[point2];
+}
+
+void Graph::findShortestPath(int point1, int point2, int* path, int* pathCount)
+{
+    bool visited[numVertices];
+    int distance[numVertices];
+    int parent[numVertices];
+
+    for (int i = 0; i < numVertices; i++)
+    {
+        visited[i] = false;
+        distance[i] = INT32_MAX;
+        parent[i] = -1;
+    }
+
+    distance[point1] = 0;
+
+    for(int count = 0; count < numVertices; count++)
+    {
+        int min = INT32_MAX;
+        int min_index = 0;
+
+        for (int v = 0; v < numVertices; v++)
+            if (!visited[v] && distance[v] <= min)
+            {
+                min = distance[v];
+                min_index = v;
+            }
+
+        int node = min_index;
+
+        for(int i = 0; i < numVertices; i++)
+        {
+            if(!visited[i] && adjMatrix[node][i] != -1 && distance[node] != INT32_MAX
+            && distance[node] + adjMatrix[node][i] < distance[i])
+            {
+                distance[i] = distance[node] + adjMatrix[node][i];
+                parent[i] = node;
+            }
+        }
+        visited[node] = 1;
+    }
+
+    *pathCount = 0;
+
+    int p = point2;
+    while(p != -1)
+    {
+        path[*pathCount] = p;
+        (*pathCount)++;
+        p = parent[p];
+    }
+}
+
+
+
+void Graph::findShortestTripIter(int point, bool* travelled,
+                                 int* points, int totalPointCount,
+                                 int length, int* minLength,
+                                 int* minPath, int* currentPath,
+                                 int iter)
+{
+    currentPath[iter] = point;
+
+    bool* newTravelled = new bool[numVertices];
+    for(int i = 0; i < numVertices; i ++)
+    {
+        newTravelled[i] = travelled[i];
+    }
+    newTravelled[point] = true;
+
+    if(iter >= totalPointCount)
+    {
+        if(length < *minLength)
+        {
+            *minLength = length;
+            for(int i = 0; i < iter + 1; i ++)
+            {
+                minPath[i] = currentPath[i];
+            }
+        }
+        delete[] newTravelled;
+        return;
+    }
+
+    for(int i = 0; i < totalPointCount; i ++)
+    {
+        if(!newTravelled[points[i]])
+        {
+            int newLength = length + findShortestDistance(point, points[i]);
+            findShortestTripIter(points[i], newTravelled,
+                                 points, totalPointCount,
+                                 newLength, minLength,
+                                 minPath, currentPath,
+                                 iter + 1);
+        }
+    }
+
+    delete[] newTravelled;
+}
+
+int* Graph::findShortestTrip(int startingPoint,
+                             int* chosenPoints,
+                             int chosenPointsLength,
+                             int* shortestPath,
+                             int* shortestPathCount,
+                             int* shortestDistance)
+{
+    AppController::Console->setText("PATH");
+
+    bool* travelled = new bool[numVertices] { false };
+
+    int* minLength = new int(999999);
+    int* minPath = new int[chosenPointsLength + 1];
+    int* currentPath = new int[chosenPointsLength + 1];
+
+    findShortestTripIter(startingPoint, travelled,
+                         chosenPoints, chosenPointsLength,
+                         0, minLength, minPath,
+                         currentPath, 0);
+
+    *shortestDistance = *minLength;
+
+    delete[] travelled;
+    delete minLength;
+    delete[] currentPath;
+
+    for(int i = 0; i < chosenPointsLength; i ++)
+    {
+        int* path = new int [1000];
+        int* pathCount = new int;
+        *pathCount = 0;
+        findShortestPath(minPath[i], minPath[i + 1], path, pathCount);
+
+        for(int i = *pathCount - 1; i >= 1; i --)
+        {
+            shortestPath[*shortestPathCount] = path[i];
+            (*shortestPathCount) ++;
+        }
+
+        delete[] path;
+        delete pathCount;
+    }
+
+    shortestPath[*shortestPathCount] = minPath[chosenPointsLength];
+    (*shortestPathCount) ++;
+
+    return minPath;
 }
 
 /*************************************************

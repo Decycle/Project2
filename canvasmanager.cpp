@@ -105,11 +105,11 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
         { 5, 4, 80 },
         { 4, 9, 195 },
         { 14, 9, 1255 },
-        { 8, 1, 1 },
-        { 17, 22, 1 },
-        { 12, 28, 1 },
-        { 16, 18, 1 },
-        { 4, 29, 1 }
+        { 8, 1, 0 },
+        { 17, 22, 0 },
+        { 12, 28, 0 },
+        { 16, 18, 0 },
+        { 4, 29, 0 }
     };
 
     edgeList = new int*[1000];
@@ -127,10 +127,7 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
     {
         VertexItem *vertex = new VertexItem(verticesList[i][0] - 11,
                 verticesList[i][1] - 11, 22, 22, i);
-        vertex->setBrush(QBrush(QColor(245, 59, 59)));
-        vertex->setPen(Qt::NoPen);
         vertex->setZValue(3);
-
         scene->addItem(vertex);
         vertex->setStadium(AppController::Stadiums[i]);
         vertices[i] = vertex;
@@ -210,9 +207,6 @@ void CanvasManager::advance()
 
 void CanvasManager::startAnimation(int* points, int pointCount)
 {
-    step = 0;
-    timer->start(40);
-
     for(int i = 0; i < 1000; i ++)
     {
         selectedLines[i] = 0;
@@ -235,6 +229,9 @@ void CanvasManager::startAnimation(int* points, int pointCount)
             }
         }
     }
+
+    step = 0;
+    timer->start(40);
 }
 
 void CanvasManager::clearCanvas()
@@ -256,8 +253,6 @@ void CanvasManager::clearCanvas()
     int lastStadium = AppController::StadiumCount - 1;
 
     VertexItem *vertex = new VertexItem(x - 11, y - 11, 22, 22, lastStadium, true);
-    vertex->setBrush(QBrush(QColor(245, 59, 59)));
-    vertex->setPen(Qt::NoPen);
     vertex->setZValue(3);
 
     scene->addItem(vertex);

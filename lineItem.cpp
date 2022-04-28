@@ -34,7 +34,16 @@ void LineItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     double y1 = a->posY + 11;
     double y2 = b->posY + 11;
 
-    double percent = p / distance;
+    double percent;
+    if(distance == 0)
+    {
+        percent = p;
+    }
+    else
+    {
+        percent = p / distance;
+    }
+
 
     if (percent < 0.) percent = 0.;
     if (percent > 1.) percent = 1.;
@@ -50,13 +59,13 @@ void LineItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
 void LineItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
 {
-    width = 3;
-    this->update();
+//    width = 3;
+//    this->update();
 }
 void LineItem::hoverLeaveEvent(QGraphicsSceneHoverEvent*)
 {
-    width = 2;
-    this->update();
+//    width = 2;
+//    this->update();
 }
 
 void LineItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
