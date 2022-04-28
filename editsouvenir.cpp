@@ -12,7 +12,7 @@ EditSouvenir::EditSouvenir(QWidget *parent, int index) :
     this->index = index;
 
     Stadium *stadium = AppController::Stadiums[index];
-    this->ui->tableWidget->setRowCount(100);
+    this->ui->tableWidget->setRowCount(20);
     this->ui->tableWidget->setColumnWidth(0, 150);
 
     for(int i = 0; i < stadium->souvenir.count; i ++)

@@ -11,8 +11,8 @@ public:
     void addItem(string name, double price);
     string to_str() const;
     double totalPrice();
-    string names[100];
-    double prices[100];
+    string names[20];
+    double prices[20];
     int count;
 };
 

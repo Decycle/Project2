@@ -233,7 +233,7 @@ NAME</string>
    </widget>
    <widget class="QPushButton" name="editSouvenirBtn">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>

@@ -6,6 +6,8 @@
 
 Souvenir::Souvenir()
 {
+    count = 0;
+
     this->addItem("Baseball cap", 25.99);
     this->addItem("Baseball bat", 35.35);
     this->addItem("Team pennant", 12.99);
