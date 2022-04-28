@@ -2,6 +2,16 @@
 #include "stadiummaster.h"
 #include "appcontroller.h"
 
+/**********************************************************
+* Method CanvasManager(): Class CanvasManager
+*_________________________________________________________
+* This method is a default constructor
+*_________________________________________________________
+* PRE-CONDITIONS
+*      graphics view
+* POST-CONDITIONS
+*     create a default object
+***********************************************************/
 CanvasManager::CanvasManager(QGraphicsView *graphicsView)
 {
     scene = new QGraphicsScene(graphicsView);
@@ -173,6 +183,16 @@ CanvasManager::CanvasManager(QGraphicsView *graphicsView)
     step = 0;
 }
 
+/**********************************************************
+* Method CanvasManager(): Class CanvasManager
+*_________________________________________________________
+* This method is a default destructor
+*_________________________________________________________
+* PRE-CONDITIONS
+*       none
+* POST-CONDITIONS
+*       delete default object
+***********************************************************/
 CanvasManager::~CanvasManager()
 {
     for(int i = 0; i < 1000; i ++)
@@ -184,6 +204,16 @@ CanvasManager::~CanvasManager()
     delete timer;
 }
 
+/**********************************************************
+* Method advance(): Class CanvasManager
+*_________________________________________________________
+* This method will update animation in each scene
+*_________________________________________________________
+* PRE-CONDITIONS
+*       none
+* POST-CONDITIONS
+*       delete default object
+***********************************************************/
 void CanvasManager::advance()
 {
     const float SPEED = 15;
@@ -205,6 +235,16 @@ void CanvasManager::advance()
     step += 1;
 }
 
+/**********************************************************
+* Method startAnimation(): Class CanvasManager
+*_________________________________________________________
+* This method will print line in animation
+*_________________________________________________________
+* PRE-CONDITIONS
+*       int* int
+* POST-CONDITIONS
+*       none
+***********************************************************/
 void CanvasManager::startAnimation(int* points, int pointCount)
 {
     for(int i = 0; i < 1000; i ++)
@@ -234,6 +274,16 @@ void CanvasManager::startAnimation(int* points, int pointCount)
     timer->start(40);
 }
 
+/**********************************************************
+* Method clearCanvas(): Class CanvasManager
+*_________________________________________________________
+* This method will clear canvas
+*_________________________________________________________
+* PRE-CONDITIONS
+*       none
+* POST-CONDITIONS
+*       clear all lines
+***********************************************************/
 void CanvasManager::clearCanvas()
 {
     for(int i = 0; i < 1000; i ++)
@@ -248,8 +298,18 @@ void CanvasManager::clearCanvas()
     }
 }
 
- void CanvasManager::addVertex(int x, int y, Stadium* stadium)
- {
+/**********************************************************
+* Method addVertex(): Class CanvasManager
+*_________________________________________________________
+* This method will add new vertex in input coordinate
+*_________________________________________________________
+* PRE-CONDITIONS
+*       int int stadium
+* POST-CONDITIONS
+*       none
+***********************************************************/
+void CanvasManager::addVertex(int x, int y, Stadium* stadium)
+{
     int lastStadium = AppController::StadiumCount - 1;
 
     VertexItem *vertex = new VertexItem(x - 11, y - 11, 22, 22, lastStadium, true);
@@ -264,8 +324,19 @@ void CanvasManager::clearCanvas()
     this->vertexList[lastStadium] = newVertice;
 
     this->scene->update();
- }
+}
 
+/**********************************************************
+* Method addLine(): Class CanvasManager
+*_________________________________________________________
+* This method will add a new lint in input coordinate
+*   and return length
+*_________________________________________________________
+* PRE-CONDITIONS
+*       int int
+* POST-CONDITIONS
+*       int
+***********************************************************/
 int CanvasManager::addLine(int i, int j)
 {
     int ix = AppController::Vertices[i]->posX + 11;
