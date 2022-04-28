@@ -12,6 +12,9 @@ class EditSouvenir : public QDialog
     Q_OBJECT
 
 public:
+    /******************************
+     ** CONSTRUCTOR & DESTRUCTOR **
+     ******************************/
     explicit EditSouvenir(QWidget *parent = nullptr, int index=0);
     ~EditSouvenir();
 

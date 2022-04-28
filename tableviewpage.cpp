@@ -3,6 +3,21 @@
 #include "appcontroller.h"
 #include <QTableWidgetItem>
 
+/***********
+ * CONSTRUCTOR *
+ * **********/
+
+/*************************************************
+ * Method TableViewPage(): Class TableViewPage
+ * _______________________________________________
+ * COnstructor for TableViewPage class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Initalized the TableViewPage page.
+ * ***********************************************/
 TableViewPage::TableViewPage(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TableViewPage)
@@ -48,11 +63,37 @@ TableViewPage::TableViewPage(QWidget *parent) :
 
 }
 
+/****************
+ * DECONSTRUCTOR *
+ * **************/
+
+/*************************************************
+ * Method ~TableViewPage(): Class TableViewPage
+ * _______________________________________________
+ * Deconstructor for TableViewPage class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Deleted the TableViewPage page.
+ * ***********************************************/
 TableViewPage::~TableViewPage()
 {
     delete ui;
 }
 
+/*************************************************
+ * Method on_cancelBtn_clicked(): Class TableViewPage
+ * _______________________________________________
+ * Overload Constructor for TableViewPage class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Deleted the TableViewPage page.
+ * ***********************************************/
 void TableViewPage::on_returnBtn_clicked()
 {
     this->close();

@@ -16,8 +16,14 @@ using namespace std;
 class VertexItem: public QGraphicsEllipseItem
 {
 public:
+    /*****************
+     ** CONSTRUCTOR **
+     *****************/
     VertexItem(qreal x, qreal y, qreal width,
                qreal height, int index, bool isMovable=false);
+    /*************
+     ** MUTATOR **
+     *************/
     void setStadium(Stadium *stadium);
     void setAlternativeStadium(Stadium *stadium);
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);

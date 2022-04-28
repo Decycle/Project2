@@ -4,6 +4,22 @@
 #include "stadium.h"
 #include "souvenir.h"
 
+
+/************
+ * CONSTRUCTOR *
+ * **********/
+
+/*************************************************
+ * Method EditSouvenir(): Class EditSouvenir
+ * _______________________________________________
+ * COnstructor for EditSouvenir class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Initalized the EditSouvenir page.
+ * ***********************************************/
 EditSouvenir::EditSouvenir(QWidget *parent, int index) :
     QDialog(parent),
     ui(new Ui::EditSouvenir)
@@ -24,17 +40,51 @@ EditSouvenir::EditSouvenir(QWidget *parent, int index) :
     }
 }
 
+/****************
+ * DECONSTRUCTOR *
+ * **************/
 
+/*************************************************
+ * Method ~EditSouvenir(): Class EditSouvenir
+ * _______________________________________________
+ * Deconstructor for EditSouvenir class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Deleted the EditSouvenir page.
+ * ***********************************************/
 EditSouvenir::~EditSouvenir()
 {
     delete ui;
 }
-
+/*************************************************
+ * Method on_cancelBtn_clicked(): Class EditSouvenir
+ * _______________________________________________
+ * Cancel button clicked.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Closes the EditSouvenir page.
+ * ***********************************************/
 void EditSouvenir::on_cancelBtn_clicked()
 {
     this->close();
 }
-
+/*************************************************
+ * Method on_saveBtn_clicked(): Class EditSouvenir
+ * _______________________________________________
+ * Saves the souvenir information.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Saves the souvenir information.
+ * ***********************************************/
 void EditSouvenir::on_saveBtn_clicked()
 {
     Stadium *stadium = AppController::Stadiums[index];
