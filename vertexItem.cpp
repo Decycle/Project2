@@ -1,6 +1,24 @@
 #include "vertexItem.h"
 #include "appcontroller.h"
 
+/**********************************************************
+ *
+ * VertexItem(qreal x, qreal y, qreal width,
+           qreal height, int index, bool isMovable)
+    :QGraphicsEllipseItem(x, y, width, height)
+ *_________________________________________________________
+ * This function is set the vertex
+ *_________________________________________________________
+ * PRE-CONDITIONS
+ *  x : horizontal
+ *  y : vertical
+ *  posX : postion for x
+ *  posY : postion for y
+ *  index : index
+ *  isMovable: it is Movable
+ * POST-CONDITIONS
+ *  This function is set the vertex
+ ***********************************************************/
 VertexItem::VertexItem(qreal x, qreal y, qreal width,
            qreal height, int index, bool isMovable)
     :QGraphicsEllipseItem(x, y, width, height)
@@ -16,16 +34,52 @@ VertexItem::VertexItem(qreal x, qreal y, qreal width,
     this->setFlag(QGraphicsItem::ItemIsMovable);
 }
 
+/**********************************************************
+ *
+ * setStadium(Stadium *stadium)
+ *_________________________________________________________
+ * This function is set the stadium
+ *_________________________________________________________
+ * PRE-CONDITIONS
+ *   none
+ *
+ * POST-CONDITIONS
+ *  This function is set the stadium
+ ***********************************************************/
 void VertexItem::setStadium(Stadium *stadium)
 {
     this->stadium = stadium;
 }
 
+/**********************************************************
+ *
+ * setAlternativeStadium(Stadium *stadium);
+ *_________________________________________________________
+ * This function is set the alternative stadium
+ *_________________________________________________________
+ * PRE-CONDITIONS
+ *   none
+ *
+ * POST-CONDITIONS
+ *  This function is set the alternative stadium
+ ***********************************************************/
 void VertexItem::setAlternativeStadium(Stadium *stadium)
 {
     this->alternativeStadium = stadium;
 }
 
+/**********************************************************
+ *
+ * paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+ *_________________________________________________________
+ * This function is paint the vertex
+ *_________________________________________________________
+ * PRE-CONDITIONS
+ *   none
+ *
+ * POST-CONDITIONS
+ *  This function is output the vertex
+ ***********************************************************/
 void VertexItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     if(AppController::ShowName)
@@ -60,6 +114,18 @@ void VertexItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidg
     painter->drawEllipse(x + 3, y + 3, 16, 16);
 }
 
+/**********************************************************
+ *
+ * mousePressEvent(QGraphicsSceneMouseEvent* event)
+ *_________________________________________________________
+ * This function creat the mouse press
+ *_________________________________________________________
+ * PRE-CONDITIONS
+ *   none
+ *
+ * POST-CONDITIONS
+ *  This function creat the mouse press
+ ***********************************************************/
 void VertexItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     if (event->buttons() & Qt::LeftButton)
@@ -110,6 +176,18 @@ void VertexItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
 }
 
+/**********************************************************
+ *
+ * mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+ *_________________________________________________________
+ * This function is create the mouseMove Event
+ *_________________________________________________________
+ * PRE-CONDITIONS
+ *   none
+ *
+ * POST-CONDITIONS
+ *  This function is create the mouseMove Event.
+ ***********************************************************/
 void VertexItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!isMovable)
