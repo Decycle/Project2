@@ -86,7 +86,7 @@ STADIUM</string>
     <property name="geometry">
      <rect>
       <x>1350</x>
-      <y>350</y>
+      <y>390</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -173,7 +173,7 @@ VIEW</string>
     <property name="geometry">
      <rect>
       <x>1460</x>
-      <y>300</y>
+      <y>390</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -190,7 +190,7 @@ STADIUM</string>
     <property name="geometry">
      <rect>
       <x>1460</x>
-      <y>350</y>
+      <y>440</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -216,12 +216,12 @@ TRIP</string>
    </widget>
    <widget class="QPushButton" name="showNameBtn">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
       <x>1460</x>
-      <y>400</y>
+      <y>300</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -238,7 +238,7 @@ NAME</string>
     <property name="geometry">
      <rect>
       <x>1350</x>
-      <y>400</y>
+      <y>440</y>
       <width>91</width>
       <height>41</height>
      </rect>
