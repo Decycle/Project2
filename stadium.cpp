@@ -37,5 +37,6 @@ ostream& operator<<(ostream& os, const Stadium& stadium)
     os << (stadium.hasGrass ? "Grass" : "Artificial turf") << endl;
     os << "Team: " << stadium.team.toStdString() << endl;
     os << "Opened: " << stadium.opened << endl;
+    os << "Souvenir: \n" << stadium.souvenir.to_str() << endl;
     return os;
 }

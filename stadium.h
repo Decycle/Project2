@@ -1,6 +1,8 @@
 #ifndef STADIUM_H
 #define STADIUM_H
 
+#include "souvenir.h"
+
 #include <QString>
 #include <iostream>
 #include <sstream>
@@ -24,6 +26,8 @@ public:
     bool hasGrass;
     QString team;
     int opened;
+
+    Souvenir souvenir;
 
 };
 

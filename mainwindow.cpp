@@ -5,6 +5,8 @@
 #include "loginpage.h"
 #include "stadiumeditpage.h"
 #include "appcontroller.h"
+#include "souvenir.h"
+#include "editsouvenir.h"
 
 #include <QGraphicsScene>
 #include <QDebug>
@@ -44,6 +46,7 @@ void MainWindow::clearSelection()
 void MainWindow::login()
 {
     AppController::IsLoggedIn = true;
+    this->ui->editSouvenirBtn->setEnabled(true);
     this->ui->editStadiumBtn->setEnabled(true);
     this->ui->newStadiumBtn->setEnabled(true);
     this->ui->newPathBtn->setEnabled(true);
@@ -82,11 +85,16 @@ void MainWindow::on_startPathBtn_clicked()
 
     QString output = "";
     QString path = "";
+    QString souvenirs = "";
+    double totalSpent = 0;
 
     while(p != -1)
     {
         pointsCount ++;
         path += AppController::Stadiums[p]->name + "-> \n";
+        souvenirs += AppController::Stadiums[p]->name + "\n";
+        souvenirs += QString::fromStdString(AppController::Stadiums[p]->souvenir.to_str()) + "\n";
+        totalSpent += AppController::Stadiums[p]->souvenir.totalPrice();
         p = shortest_paths[p][1];
         points[pointsCount] = p;
     }
@@ -99,7 +107,9 @@ void MainWindow::on_startPathBtn_clicked()
 
     output += "Total Distance Travelled: " + QString::number(shortest_paths[pointB][0]) + '\n';
     output += "Total Stadiums Visited: " + QString::number(pointsCount) + '\n';
-    output += "Path: \n" + path.chopped(4);
+    output += "Path: \n" + path.chopped(4) + "\n\n";
+    output += "Souvenirs: \nTotal Spent:" + QString::number(totalSpent) + "\n\n";
+    output += souvenirs.chopped(2);
 
     this->ui->console->setText(output);
 
@@ -110,6 +120,10 @@ void MainWindow::on_randomStadiumBtn_clicked()
 {
     int index = QRandomGenerator::global()->generate() % AppController::StadiumCount;
     this->ui->console->setText(QString::fromStdString(AppController::Stadiums[index]->str()));
+
+
+//    Souvenir s;
+    AppController::Stadiums[index]->souvenir.to_str();
 }
 
 void MainWindow::on_loginBtn_clicked()
@@ -125,6 +139,7 @@ void MainWindow::on_loginBtn_clicked()
     {
         AppController::IsLoggedIn = false;
         this->ui->editStadiumBtn->setEnabled(false);
+        this->ui->editSouvenirBtn->setEnabled(false);
         this->ui->newStadiumBtn->setEnabled(false);
         this->ui->newPathBtn->setEnabled(false);
         this->ui->loginBtn->setText("LOGIN");
@@ -303,17 +318,24 @@ void MainWindow::on_startTripBtn_clicked()
         return;
     }
 
+    QString souvenirs;
     QString path;
+    double totalSpent = 0;
 
     for(int i = 0; i < *shortestPathCount; i ++)
     {
         path += AppController::Stadiums[shortestPath[i]]->name + "-> \n";
+        souvenirs += AppController::Stadiums[shortestPath[i]]->name + "\n";
+        souvenirs += QString::fromStdString(AppController::Stadiums[shortestPath[i]]->souvenir.to_str()) + "\n";
+        totalSpent += AppController::Stadiums[shortestPath[i]]->souvenir.totalPrice();
     }
 
     QString output;
     output += "Total Distance Travelled: " + QString::number(*shortestDistance) + '\n';
     output += "Total Stadiums Visited: " + QString::number(*shortestPathCount) + '\n';
-    output += "Path: \n" + path.chopped(4);
+    output += "Path: \n" + path.chopped(4) + "\n\n";
+    output += "Souvenirs: \nTotal Spent:" + QString::number(totalSpent) + "\n\n";
+    output += souvenirs.chopped(2);
 
     AppController::Console->setText(output);
 
@@ -333,5 +355,29 @@ void MainWindow::on_showNameBtn_clicked()
     {
         AppController::GraphicsView->update();
     }
+}
+
+
+void MainWindow::on_editSouvenirBtn_clicked()
+{
+    int stadium = -1;
+
+    for(int i = 0; i < 1000; i ++)
+    {
+        if((*AppController::SelectStadiumIndex)[i])
+        {
+            stadium = i;
+        }
+    }
+
+    if(stadium == -1)
+    {
+        this->ui->console->setText("No vertex selected");
+        return;
+    }
+
+    EditSouvenir editSouvenir(nullptr, stadium);
+    editSouvenir.setModal(true);
+    editSouvenir.exec();
 }
 

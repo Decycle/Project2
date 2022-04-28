@@ -34,10 +34,9 @@ private slots:
     void on_tableViewBtn_clicked();
     void on_newStadiumBtn_clicked();
     void on_newPathBtn_clicked();
-
     void on_startTripBtn_clicked();
-
     void on_showNameBtn_clicked();
+    void on_editSouvenirBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

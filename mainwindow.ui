@@ -168,7 +168,7 @@ VIEW</string>
    </widget>
    <widget class="QPushButton" name="newStadiumBtn">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -185,7 +185,7 @@ STADIUM</string>
    </widget>
    <widget class="QPushButton" name="newPathBtn">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -216,7 +216,7 @@ TRIP</string>
    </widget>
    <widget class="QPushButton" name="showNameBtn">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -229,6 +229,23 @@ TRIP</string>
     <property name="text">
      <string>SHOW
 NAME</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="editSouvenirBtn">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1350</x>
+      <y>400</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>EDIT
+SOUVENIR</string>
     </property>
    </widget>
   </widget>

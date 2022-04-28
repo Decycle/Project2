@@ -10,11 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     canvasmanager.cpp \
+    editsouvenir.cpp \
     graph.cpp \
     lineItem.cpp \
     loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
+    souvenir.cpp \
     stadium.cpp \
     stadiumeditpage.cpp \
     stadiummaster.cpp \
@@ -24,10 +26,12 @@ SOURCES += \
 HEADERS += \
     appcontroller.h \
     canvasmanager.h \
+    editsouvenir.h \
     graph.h \
     lineitem.h \
     loginpage.h \
     mainwindow.h \
+    souvenir.h \
     stadium.h \
     stadiumeditpage.h \
     stadiummaster.h \
@@ -35,6 +39,7 @@ HEADERS += \
     vertexItem.h
 
 FORMS += \
+    editsouvenir.ui \
     loginpage.ui \
     mainwindow.ui \
     stadiumeditpage.ui \
