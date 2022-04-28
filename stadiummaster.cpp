@@ -1,6 +1,22 @@
 #include "stadiummaster.h"
 #include "appcontroller.h"
 
+
+/**************
+ * CONSTRUCTOR *
+ * ************/
+
+/*************************************************
+ * Method StadiumMaster(): Class StadiumMaster
+ * _______________________________________________
+ * Constructor for StadiumMaster class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Initalized the StadiumMaster page.
+ * ***********************************************/
 StadiumMaster::StadiumMaster()
 {
     const QString names[30] = {
@@ -213,6 +229,17 @@ StadiumMaster::StadiumMaster()
     }
 }
 
+/*************************************************
+ * Method addStadium(): Class StadiumMaster
+ * _______________________________________________
+ * Add a new stadiumn.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Initalized the StadiumMaster page.
+ * ***********************************************/
 void StadiumMaster::addStadium()
 {
     AppController::Stadiums[AppController::StadiumCount - 1] = new Stadium;

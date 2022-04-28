@@ -3,6 +3,21 @@
 #include "appcontroller.h"
 #include <QIntValidator>
 
+/************
+ * CONSTRUCTOR *
+ * **********/
+
+/*************************************************
+ * Method StadiumEditPage(): Class StadiumEditPage
+ * _______________________________________________
+ * COnstructor for StadiumEditPage class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Initalized the StadiumEditPage page.
+ * ***********************************************/
 StadiumEditPage::StadiumEditPage(QWidget *parent, Stadium *stadium) :
     QDialog(parent),
     ui(new Ui::StadiumEditPage)
@@ -28,6 +43,17 @@ StadiumEditPage::StadiumEditPage(QWidget *parent, Stadium *stadium) :
     this->edit = true;
 }
 
+/*************************************************
+ * Method StadiumEditPage(): Class StadiumEditPage
+ * _______________________________________________
+ * Overload Constructor for StadiumEditPage class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Initalized the StadiumEditPage page.
+ * ***********************************************/
 StadiumEditPage::StadiumEditPage(QWidget *parent, MainWindow *mainWindow) :
     QDialog(parent),
     ui(new Ui::StadiumEditPage)
@@ -44,17 +70,54 @@ StadiumEditPage::StadiumEditPage(QWidget *parent, MainWindow *mainWindow) :
     this->edit = false;
 }
 
+/****************
+ * DECONSTRUCTOR *
+ * **************/
+
+/*************************************************
+ * Method ~StadiumEditPage(): Class StadiumEditPage
+ * _______________________________________________
+ * Deconstructor for StadiumEditPage class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Deleted the StadiumEditPage page.
+ * ***********************************************/
 StadiumEditPage::~StadiumEditPage()
 {
     delete ui;
 }
 
+/*************************************************
+ * Method on_cancelBtn_clicked(): Class StadiumEditPage
+ * _______________________________________________
+ * Overload Constructor for StadiumEditPage class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Deleted the StadiumEditPage page.
+ * ***********************************************/
 void StadiumEditPage::on_cancelBtn_clicked()
 {
     this->close();
 }
 
 
+/*************************************************
+ * Method on_saveButton_clicked(): Class StadiumEditPage
+ * _______________________________________________
+ * Overload Constructor for StadiumEditPage class.
+ * _______________________________________________
+ * PRE-CONDITIONS:
+ * The following needs previous defined values:
+ * int index
+ * POST-CONDITIONS:
+ * Deleted the StadiumEditPage page.
+ * ***********************************************/
 void StadiumEditPage::on_saveBtn_clicked()
 {
     if(this->edit)
