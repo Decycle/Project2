@@ -11,6 +11,9 @@
 class AppController
 {
 public:
+    /*************
+     * ACCESSORS *
+     * ***********/
     inline static Stadium** Stadiums = new Stadium*[1000];
     inline static QBitArray* SelectStadiumIndex = new QBitArray(1000);
     inline static VertexItem** Vertices = new VertexItem*[1000];
@@ -23,11 +26,18 @@ public:
     inline static int StartingStadium = -1;
     inline static bool ShowName = false;
 
+    /**************
+     ** MUTATORS **
+     **************/
     static void SelectStadium(int i, bool value = true)
     {
         AppController::SelectStadiumIndex->setBit(i, value);
         AppController::Vertices[i]->update();
     }
+
+    /****************
+     ** CONSTRUCTOR **
+     ***************/
     AppController();
 
 };

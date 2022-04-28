@@ -4,6 +4,17 @@
 #include <sstream>
 #include <QDebug>
 
+/**********************************************************
+* Method Souvenir(): Class Souvenir
+*_________________________________________________________
+* This method is a default constructor
+*_________________________________________________________
+* PRE-CONDITIONS
+*
+*
+* POST-CONDITIONS
+*     create a default object
+***********************************************************/
 Souvenir::Souvenir()
 {
     count = 0;
@@ -14,6 +25,17 @@ Souvenir::Souvenir()
     this->addItem("Autographed baseball", 19.99);
 }
 
+/**********************************************************
+* Method totalPrice(): Class Souvenir
+*_________________________________________________________
+* This method return total price
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*      int
+***********************************************************/
 double Souvenir::totalPrice()
 {
     int total = 0;
@@ -26,6 +48,17 @@ double Souvenir::totalPrice()
     return total;
 }
 
+/**********************************************************
+* Method addItem(): Class Souvenir
+*_________________________________________________________
+* This method add new souvenir to list
+*_________________________________________________________
+* PRE-CONDITIONS
+*      string double
+*
+* POST-CONDITIONS
+*      none
+***********************************************************/
 void Souvenir::addItem(string name, double price)
 {
     this->names[count] = name;
@@ -33,6 +66,17 @@ void Souvenir::addItem(string name, double price)
     count++;
 }
 
+/**********************************************************
+* Method to_str(): Class Souvenir
+*_________________________________________________________
+* This method print out souvenir list
+*_________________________________________________________
+* PRE-CONDITIONS
+*
+*   none
+* POST-CONDITIONS
+*      string
+***********************************************************/
 string Souvenir::to_str() const
 {
     stringstream output;
