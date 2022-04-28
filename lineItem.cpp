@@ -1,6 +1,17 @@
 #include "lineitem.h"
 #include "appcontroller.h"
 
+/***********************************************************
+* LineItem(VertexItem* a, VertexItem* b, float distance)
+*_________________________________________________________
+* This function is set the postion for the line
+*_________________________________________________________
+* PRE-CONDITIONS
+* none
+* POST-CONDITIONS
+*     initializes heapArray to array of set SIZE
+* and count to 0
+***********************************************************/
 LineItem::LineItem(VertexItem* a, VertexItem* b, float distance)
     :QGraphicsLineItem(a->posX + 11, a->posY + 11, b->posX + 11, b->posY + 11)
 {
