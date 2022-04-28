@@ -127,13 +127,17 @@ StadiumMaster::StadiumMaster()
         2010, 1990, 2017, 1914, 2009
     };
 
+    //American:
+    //2 7 10 11 14
+    //16 23 19 22 24
+    //25 26 27 13 30
     const bool isAmerican[30] = {
-        true, true, false, true, false,
-        false, false, true, false, true,
-        true, true, false, false, true,
-        true, false, true, false, false,
-        true, true, false, false, false,
-        false, true, true, false, false,
+        0, 1, 0, 0, 0,
+        0, 1, 0, 0, 1,
+        1, 0, 1, 1, 0,
+        1, 0, 0, 1, 0,
+        0, 1, 1, 1, 1,
+        1, 1, 0, 0, 1
     };
 
     Stadium** stadiums = new Stadium*[1000];

@@ -14,6 +14,8 @@ class Graph {
 private:
     // Matrix to store the shortest path
     int **adjMatrix;
+    //Matrix to store the shortest path between two points
+    int **shortestPathMatrix;
     // Number of vertices
     int numVertices;
     // Number of edges

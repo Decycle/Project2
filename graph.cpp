@@ -34,6 +34,17 @@ Graph::Graph()
             adjMatrix[i][j] = -1;
         }
     }
+
+    shortestPathMatrix = new int*[CAPACITY];
+    for (int i = 0; i < CAPACITY; i++)
+    {
+        shortestPathMatrix[i] = new int[CAPACITY];
+        for(int j = 0; j < CAPACITY; j++)
+        {
+            shortestPathMatrix[i][j] = -1;
+        }
+    }
+
     numVertices = 0;
     numEdges = 0;
     names = new string[CAPACITY];
@@ -63,6 +74,11 @@ Graph::~Graph()
         delete [] adjMatrix[i];
     }
     delete [] adjMatrix;
+    for(int i = 0; i < CAPACITY; i ++)
+    {
+        delete[] shortestPathMatrix[i];
+    }
+    delete[] shortestPathMatrix;
     delete [] names;
 }
 
@@ -224,6 +240,11 @@ int** Graph::findShortestPaths(int start)
 
 int Graph::findShortestDistance(int point1, int point2)
 {
+    if(shortestPathMatrix[point1][point2] != -1)
+    {
+        return shortestPathMatrix[point1][point2];
+    }
+
     bool visited[numVertices];
     int distance[numVertices];
     int parent[numVertices];
@@ -263,6 +284,10 @@ int Graph::findShortestDistance(int point1, int point2)
         }
         visited[node] = 1;
     }
+
+    shortestPathMatrix[point1][point2] = distance[point2];
+    shortestPathMatrix[point2][point1] = distance[point2];
+
     return distance[point2];
 }
 
