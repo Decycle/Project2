@@ -15,6 +15,9 @@ class TableViewPage : public QDialog
     Q_OBJECT
 
 public:
+    /******************************
+     ** CONSTRUCTOR & DESTRUCTOR **
+     ******************************/
     explicit TableViewPage(QWidget *parent = nullptr);
     ~TableViewPage();
 

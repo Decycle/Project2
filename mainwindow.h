@@ -16,11 +16,21 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    /******************************
+     ** CONSTRUCTOR & DESTRUCTOR **
+     ******************************/
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    /**************
+     ** MUTATOR **
+     **************/
     void login();
     void selectStadium(int i);
     void clearSelection();
+
+    /**************
+     ** ACCESSOR **
+     **************/
     Stadium** getStadiums();
 private slots:
     void on_startPathBtn_clicked();

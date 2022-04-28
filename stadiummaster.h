@@ -10,7 +10,13 @@
 class StadiumMaster
 {
 public:
+    /*****************
+     ** CONSTRUCTOR **
+     *****************/
     StadiumMaster();
+    /**************
+     ** MUTATOR **
+     **************/
     void addStadium();
     void addPath(int i, int j, int length);
 //private:
