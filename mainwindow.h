@@ -16,13 +16,28 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    /******************************
+     ** CONSTRUCTOR & DESTRUCTOR **
+     ******************************/
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    /**************
+     ** MUTATORS **
+     **************/
     void login();
     void selectStadium(int i);
     void clearSelection();
+
+    /***************
+    ** ACCESSORS **
+    ***************/
     Stadium** getStadiums();
 private slots:
+
+    /**************
+     ** MUTATORS **
+     **************/
     void on_startPathBtn_clicked();
     void on_randomStadiumBtn_clicked();
     void on_loginBtn_clicked();
@@ -39,9 +54,9 @@ private slots:
     void on_editSouvenirBtn_clicked();
 
 private:
-    Ui::MainWindow *ui;
-    CanvasManager *canvas;
-    StadiumMaster *stadiumMaster;
+    Ui::MainWindow *ui;             // IN/OUT - ui
+    CanvasManager *canvas;          // IN/OUT - canvas
+    StadiumMaster *stadiumMaster;   // IN/OUT - stadiummaster
 
 };
 #endif // MAINWINDOW_H

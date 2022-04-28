@@ -13,7 +13,17 @@
 #include <QGraphicsEllipseItem>
 #include <QRandomGenerator>
 
-
+/**********************************************************
+* Method MainWindow(): Class MainWindow
+*_________________________________________________________
+* This method is a default constructor
+*_________________________________________________________
+* PRE-CONDITIONS
+*      QWidget
+*
+* POST-CONDITIONS
+*     create a default object
+***********************************************************/
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -25,16 +35,48 @@ MainWindow::MainWindow(QWidget *parent)
     this->canvas = new CanvasManager(this->ui->graphicsView);
 }
 
+/**********************************************************
+* Method MainWindow(): Class MainWindow
+*_________________________________________________________
+* This method delete a default constructor
+*_________________________________________________________
+* PRE-CONDITIONS
+*
+*
+* POST-CONDITIONS
+*     create a default object
+***********************************************************/
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**********************************************************
+* Method MainWindow(): Class MainWindow
+*_________________________________________________________
+* This method will update selected stadium
+*_________________________________________________________
+* PRE-CONDITIONS
+*      int
+*
+* POST-CONDITIONS
+***********************************************************/
 void MainWindow::selectStadium(int i)
 {
     AppController::SelectStadium(i);
 }
 
+/**********************************************************
+* Method clearSelection(): Class MainWindow
+*_________________________________________________________
+* This method will init selected stadium
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*     none
+***********************************************************/
 void MainWindow::clearSelection()
 {
     for(int i = 0; i < AppController::StadiumCount; i ++)
@@ -43,6 +85,17 @@ void MainWindow::clearSelection()
     }
 }
 
+/**********************************************************
+* Method login(): Class MainWindow
+*_________________________________________________________
+* This method will init login page
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*     none
+***********************************************************/
 void MainWindow::login()
 {
     AppController::IsLoggedIn = true;
@@ -53,6 +106,18 @@ void MainWindow::login()
     this->ui->loginBtn->setText("LOGOUT");
 }
 
+/**********************************************************
+* Method on_startPathBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will print out the stadium path info
+* when click on the startpath button
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*     create a default object
+***********************************************************/
 void MainWindow::on_startPathBtn_clicked()
 {
     int pointA = -1;
@@ -116,6 +181,17 @@ void MainWindow::on_startPathBtn_clicked()
     this->canvas->startAnimation(points, pointsCount);
 }
 
+/**********************************************************
+* Method on_randomStadiumBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will print out a random stadium info
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*     none
+***********************************************************/
 void MainWindow::on_randomStadiumBtn_clicked()
 {
     int index = QRandomGenerator::global()->generate() % AppController::StadiumCount;
@@ -126,6 +202,17 @@ void MainWindow::on_randomStadiumBtn_clicked()
     AppController::Stadiums[index]->souvenir.to_str();
 }
 
+/**********************************************************
+* Method on_loginBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will enable these method when login in succeed
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*     enable function after login succeed
+***********************************************************/
 void MainWindow::on_loginBtn_clicked()
 {
     if(!AppController::IsLoggedIn)
@@ -146,7 +233,17 @@ void MainWindow::on_loginBtn_clicked()
     }
 }
 
-
+/**********************************************************
+* Method on_clearAllBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will reset input
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*     none
+***********************************************************/
 void MainWindow::on_clearAllBtn_clicked()
 {
     this->canvas->clearCanvas();
@@ -159,7 +256,17 @@ void MainWindow::on_clearAllBtn_clicked()
     this->ui->console->setText("");
 }
 
-
+/**********************************************************
+* Method on_editStadiumBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will allow user to edis stadium
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_editStadiumBtn_clicked()
 {
     int stadium = -1;
@@ -182,6 +289,17 @@ void MainWindow::on_editStadiumBtn_clicked()
     stadiumEditPage.exec();
 }
 
+/**********************************************************
+* Method on_showSelectedStadiumsBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will show select stadium
+*_________________________________________________________
+* PRE-CONDITIONS
+*      QWidget
+*
+* POST-CONDITIONS
+*     create a default object
+***********************************************************/
 void MainWindow::on_showSelectedStadiumsBtn_clicked()
 {
     string output;
@@ -197,7 +315,18 @@ void MainWindow::on_showSelectedStadiumsBtn_clicked()
     this->ui->console->setText(QString::fromStdString(output));
 }
 
-
+/**********************************************************
+* Method on_searchStadiumsBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will allow user to search stadium with input
+* stadium name
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_searchStadiumsBtn_clicked()
 {
     StadiumEditPage stadiumEditPage(nullptr, this);
@@ -205,7 +334,17 @@ void MainWindow::on_searchStadiumsBtn_clicked()
     stadiumEditPage.exec();
 }
 
-
+/**********************************************************
+* Method on_selectAllBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will update selected stadium
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_selectAllBtn_clicked()
 {
     for(int i = 0; i < AppController::StadiumCount; i ++)
@@ -214,7 +353,17 @@ void MainWindow::on_selectAllBtn_clicked()
     }
 }
 
-
+/**********************************************************
+* Method on_tableViewBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will print out table of stadium info
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_tableViewBtn_clicked()
 {
     TableViewPage tableViewpage(nullptr);
@@ -222,7 +371,17 @@ void MainWindow::on_tableViewBtn_clicked()
     tableViewpage.exec();
 }
 
-
+/**********************************************************
+* Method on_newStadiumBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will allow user to create new stadium
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_newStadiumBtn_clicked()
 {
     AppController::StadiumCount ++;
@@ -234,7 +393,17 @@ void MainWindow::on_newStadiumBtn_clicked()
     stadiumEditPage.exec();
 }
 
-
+/**********************************************************
+* Method on_newPathBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will allow user to create new path
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_newPathBtn_clicked()
 {
     AppController::LineCount ++;
@@ -263,7 +432,17 @@ void MainWindow::on_newPathBtn_clicked()
     this->stadiumMaster->addPath(pointA, pointB, length);
 }
 
-
+/**********************************************************
+* Method on_startTripBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will allow user to start print out trip path
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_startTripBtn_clicked()
 {
     int startPoint = AppController::StartingStadium;
@@ -348,6 +527,17 @@ void MainWindow::on_startTripBtn_clicked()
 
 }
 
+/**********************************************************
+* Method on_showNameBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will allow user to show all stadium name
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_showNameBtn_clicked()
 {
     AppController::ShowName = !AppController::ShowName;
@@ -357,7 +547,17 @@ void MainWindow::on_showNameBtn_clicked()
     }
 }
 
-
+/**********************************************************
+* Method on_editSouvenirBtn_clicked(): Class MainWindow
+*_________________________________________________________
+* This method will allow user to edit souvenir list
+*_________________________________________________________
+* PRE-CONDITIONS
+*      none
+*
+* POST-CONDITIONS
+*
+***********************************************************/
 void MainWindow::on_editSouvenirBtn_clicked()
 {
     int stadium = -1;
